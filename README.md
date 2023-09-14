@@ -4,7 +4,7 @@
   
   <div align="center">
     <a href="https://www.douyin.com/user/MS4wLjABAAAAeIIkCgELXG6XdUxuE9nQ6W4AfS-aoPFbtmnBL8ytcYtBSyurgePBYZXJpB0LJBCT">
-      <img src="./assets/logo.png" alt="提薪课"  width="150" height="150"/>
+      <img src="./assets/logo.png" alt="提薪课"  width="200" height="200"/>
     </a>
   </div>
 

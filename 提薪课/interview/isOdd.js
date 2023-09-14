@@ -1,6 +1,7 @@
 /**
  * 判断奇偶性
  * 
+ * @see: https://v.douyin.com/ieaXLmWG/
  * @param {Number} num
  * @returns {Boolean}
  */

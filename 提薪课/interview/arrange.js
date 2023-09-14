@@ -1,5 +1,6 @@
 /**
  * 链式调用和延迟执行
+ * @see:https://v.douyin.com/ieaCTbNF/
  * 
  * @param {string} name 
  */

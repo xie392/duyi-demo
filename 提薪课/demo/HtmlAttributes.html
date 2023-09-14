@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>不常见 HTML 属性</title>
+</head>
+<body>
+    <!-- 影响手机键盘的输入模式  -->
+    <div>
+        <!-- 默认值，普通任意文本 -->
+        <input type="text" inputmode="text">
+        <!-- 电话号码 -->
+        <input type="text" inputmode="tel">
+        <!-- 数字 -->
+        <input type="text" inputmode="numeric">
+        <!-- 小数 -->
+        <input type="text" inputmode="decimal">
+        <!-- 电子邮件 -->
+        <input type="text" inputmode="email">
+        <!-- URL -->
+        <input type="text" inputmode="url">
+        <!-- 搜索 -->
+        <input type="text" inputmode="search">
+        <!-- 日期 -->
+        <input type="text" inputmode="date">
+        <!-- 时间 -->
+        <input type="text" inputmode="time">
+        <!-- 月份 -->
+        <input type="text" inputmode="month">
+        <!-- 周 -->
+        <input type="text" inputmode="week">
+        <!-- 数字 -->
+        <input type="text" inputmode="number">
+        <!-- 密码 -->
+        <input type="text" inputmode="password">
+    </div>
+
+    <!--  设置设置视频的预览图 -->
+    <div>
+        <video src="./assets/ikun.mp4" poster="./assets/cover.webp" controls width="500" height="300"></video>
+    </div>
+
+    <!--  选择文件多选 -->
+    <div>
+        <input type="file" multiple>
+        <select multiple>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+
+    <!-- 为元素设置快捷键 -->
+    <div>
+        <!-- 按下键盘 Alt + b 可聚焦元素  在不同的浏览器或系统可能快捷键有些差别 -->
+        <input type="text" accesskey="b">
+    </div>
+
+    <!-- Tab 键切换聚焦 -->
+    <div>
+        <input type="text" tabindex="3">
+        <input type="text" tabindex="1">
+        <input type="text" tabindex="2">
+    </div>
+
+    <!-- 下载 -->
+    <div>
+        <a href="./assets/ikun.mp4" download="ikun.mp4">下载</a>
+    </div>
+
+    <!-- 设置内部文字的排版方向 -->
+    <div>
+        <p dir="lrt">从左到右排版</p>
+        <p dir="rtl">从右到左排版</p>
+        <p dir="auto">自动检测</p>
+    </div>
+
+    <!-- 检查拼写，通常用于富文本编辑器 -->
+    <div>
+        <div contenteditable spellcheck="true">how ar you</div>
+    </div>
+
+    <!-- 禁止翻译 -->
+    <div>
+        <p translate="no">how are you</p>
+        <p translate="yes">how are you</p>
+    </div>
+
+</body>
+</html>

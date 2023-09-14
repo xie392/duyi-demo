@@ -2,8 +2,8 @@
 /**
  * 数字转中文
  * 
+ * @see:https://v.douyin.com/ieaCXeU3/
  * @param {Number} num  万亿以下的数字
- * 
  * @returns {String}
  * @example
  * numToChinese(12323400)  // 一千二百三十二万三千四百

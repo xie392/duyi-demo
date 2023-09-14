@@ -1,3 +1,8 @@
+<!-- 
+  @description: 自定义指令 reszie
+  @see: https://v.douyin.com/ieaC4RoA/
+ -->
+
 <script setup lang="ts">
 import { reactive } from 'vue'
 

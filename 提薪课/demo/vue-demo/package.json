@@ -1,5 +1,5 @@
 {
-  "name": "directive",
+  "name": "vue-demo",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "pinyin": "^3.0.0-alpha.4",
     "vue": "^3.3.4"
   },
   "devDependencies": {
