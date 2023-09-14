@@ -1,0 +1,41 @@
+body {
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+
+.btn-item {
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+    background-color: orange;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 200px;
+    text-align: center;
+    color: #fff;
+}
+
+.detail {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: 0.5s;
+    height: 0;
+    overflow: hidden;
+    width: auto;
+    background-color: orange;
+    width: 200px;
+    margin-top: 5px;
+    color: #fff;
+}
+
+.content {
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.btn:hover .detail {
+    grid-template-rows: 1fr;
+}

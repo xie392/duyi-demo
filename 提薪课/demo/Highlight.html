@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+    <title>Highlight</title>
+    <style>
+        body {
+            font-size: 16px;
+        }
+
+        .pre {
+            background: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <pre class="pre"><code id="code"></code></pre>
+    
+    <!-- and it's easy to individually load additional languages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/languages/javascript.min.js"></script>
+
+    <script>
+        const code = document.getElementById('code')
+
+        // set the code
+        code.innerHTML = `const a = 1 
+const b = 2
+const c = a + b
+console.log(c)`
+
+        // set the language
+        code.className = 'javascript'
+
+        // then highlight each
+        hljs.highlightElement(code, {
+            language: 'javascript'
+        })
+
+    </script>
+
+</body>
+
+</html>

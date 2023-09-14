@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/TextToSpeech.css">
+    <title>文字转语音</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="btns">
+            <button class="btn play">播放</button>
+            <button class="btn stop">暂停</button>
+        </div>
+        <div class="text">
+            近年来，Transformer以及基于Transformer的预训练语言模型在自然语言理解和生成领域取得了巨大进展。
+            在短文本摘要领域，无论是抽取式摘要(BERT，RoBERTa)，还是生成式摘要(BART，T5)，文本摘要模型都取得了卓越的表现。
+            然而，长文本摘要长度长，内容广，压缩程度高，并且通常是特殊领域文章（如arxiv论文），一直以来是一个难以处理的问题。
+            目前，解决长文本摘要主要有基于图/GNN的模型，基于RNN的模型和基于Transformer的模型。
+            图模型首先将一篇文章映射为一个图，并使用无监督的中心性打分抽取top-K句子或者使用GNN进行训练。
+            RNN方法对整个序列文本进行建模，并抽取或者生成摘要。目前，Transformer和PLM逐步取代RNN，成为NLP领域的焦点。
+            但是，受到位置编码长度影响，预训练语言模型通常对输入文本的最大长度存在一定限制，例如，BERT仅仅可以处理512位字符。
+            同时，Transformer的平方级别复杂度进一步限制了输入文本的长度，而对文本进行截断造成了文本信息的丢失。
+            因此，直接应用预训练语言模型是行不通的，需要添加额外机制。
+        </div>
+    </div>
+
+    <script>
+        const play = document.querySelector('.play')
+        const stop = document.querySelector('.stop')
+        const text = document.querySelector('.text')
+
+        play.addEventListener('click', () => {
+            const utterance = new SpeechSynthesisUtterance(text.textContent)
+            utterance.lang = 'zh-HK'
+            speechSynthesis.speak(utterance)
+        })
+
+        stop.addEventListener('click', () => {
+            speechSynthesis.cancel()
+        })
+
+        speechSynthesis.onvoiceschanged = function () {
+            console.log("语种：",speechSynthesis.getVoices())
+        }
+
+    </script>
+</body>
+
+</html>
