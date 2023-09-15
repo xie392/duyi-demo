@@ -1,0 +1,67 @@
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-15 21:09:20
+ * @Description: 标签通信
+ * @See: https://v.douyin.com/iemwTXbj/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>标签通信</title>
+</head>
+
+<body>
+    <audio controls id="audio"></audio>
+    <script>
+        const audio = document.getElementById('audio')
+
+        function play(name) {
+            audio.src = `./assets/${name}`
+            audio.play()
+        }
+
+        const params = new URLSearchParams(window.location.search)
+        const name = params.get('name')
+        if(name) {
+            play(name)
+        }
+
+
+        // 创建一个频道
+        const channel = new BroadcastChannel('music')
+
+        let n = localStorage.getItem('music')
+
+        if (isNaN(n)) {
+            n = 0
+        }
+
+        n++
+        localStorage.setItem('music', n)
+
+        channel.addEventListener('message', (e) => {
+            console.log(e.data);
+            play(e.data)
+        })
+
+        window.addEventListener('upload', () => {
+            let n = localStorage.getItem('music')
+            if (isNaN(n)) {
+                n = 0
+            }
+            n++
+            localStorage.setItem('music', n)
+        })
+
+        // 页面关闭
+        window.addEventListener('unload', () => {
+            localStorage.setItem('music', 0)
+        })
+
+    </script>
+</body>
+
+</html>

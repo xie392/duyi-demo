@@ -1,6 +1,8 @@
-/**
- * never类型妙用
- * @see:https://v.douyin.com/ieaCHTCg/
+/*
+ * @Author: xie392
+ * @Date: 2023-09-14 23:31:01
+ * @Description: never类型妙用
+ * @See: https://v.douyin.com/ieaCHTCg/
  */
 function log1<T>(x:T extends number ? never : T) {}
 // log1(1) // error

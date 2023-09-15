@@ -1,7 +1,10 @@
-<!-- 
-    根据角度判断鼠标移入方向
-    @see: https://v.douyin.com/ieaCp8Ht/
- -->
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-14 23:03:13
+ * @Description:  鼠标移入方向
+ * @See: https://v.douyin.com/ieaCp8Ht/
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,45 +62,6 @@
             flag = false
         })
 
-        /**
-         * 根据数组判断鼠标移入方向，对比新旧坐标 有 bug
-         * TODO: 修复移动时可能会被判断为两个方向的 bug
-         */
-        // const btn = document.querySelector('.bar')
-        // const pos = { x: 0, y: 0 }
-        // let flag = false
-
-        // btn.addEventListener('mousemove', (e) => {
-        //     if (flag) return
-        //     if (pos.x || pos.y) {
-        //         const x = e.offsetX - pos.x
-        //         const y = e.offsetY - pos.y
-        //         flag = true
-        //         if (x > 0) {
-        //             console.log('right')
-        //             return
-        //         } else if (x < 0) {
-        //             console.log('left')
-        //             return
-        //         }
-        //         if (y > 0) {
-        //             console.log('top')
-        //             return
-        //         } else if (y < 0) {
-        //             console.log('bottom')
-        //             return
-        //         }
-
-        //     }
-        //     pos.x = e.offsetX
-        //     pos.y = e.offsetY
-        // })
-
-        // btn.addEventListener('mouseleave', () => {
-        //     pos.x = 0
-        //     pos.y = 0
-        //     flag = false
-        // })
     </script>
 </body>
 

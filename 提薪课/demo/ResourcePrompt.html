@@ -1,0 +1,37 @@
+<!--
+ * @Author: xie392 ymzdjiang@qq.com
+ * @Date: 2023-09-15 11:01:07
+ * @Description: 资源提示符
+ * @See: https://v.douyin.com/ieme5HUn/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 预先加载资源, 优先级低 -->
+    <link href="./css/CursorFollowing.css" rel="prefetch">
+    <!-- 预先加载资源, 优先级高 -->
+    <link href="./css/CursorFollowing.css" rel="preload">
+    <!-- 
+        可以使用 prefetch 或 preload 去下载一些 js 来做缓存 
+    -->
+    <link href="./js/1.js" rel="prefetch">
+    <link href="./css/CursorFollowing.css" rel="modulepreload">
+    <title>资源提示符</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DomContentLoaded")
+        })
+    </script>
+    <!-- 异步加载资源 -->
+    <script src="./js/1.js" async></script>
+    <!-- 等全部渲染完成再执行 -->
+    <script src="./js/2.js" defer></script>
+</head>
+
+<body>
+</body>
+
+</html>

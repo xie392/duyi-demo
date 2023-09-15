@@ -1,7 +1,6 @@
 /**
  * 链式调用和延迟执行
  * @see:https://v.douyin.com/ieaCTbNF/
- * 
  * @param {string} name 
  */
 function arrange(name) {
@@ -68,3 +67,5 @@ arrange('William').waitFirst(5).do('commit').execute()
 // 等待5秒
 // > William is notified
 // > Start to commit
+
+

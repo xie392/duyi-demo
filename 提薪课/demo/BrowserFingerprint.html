@@ -1,0 +1,70 @@
+<!--
+ * @Author: xie392 
+ * @Date: 2023-09-15 11:38:25
+ * @Description: 浏览器指纹
+ * @See: https://v.douyin.com/iem8NGUw/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器指纹</title>
+</head>
+<body>
+    <p>
+        主要应用于：
+        <mark>广告</mark>
+        <mark>防刷</mark>
+    </p>
+    <script>
+        /**
+         * @Description: 可以使用第三方库
+         * @See: https://github.com/fingerprintjs/fingerprintjs
+         */
+        function getCanvasFingerprint() {
+            const canvas  = document.createElement('canvas')
+            canvas.width = 200
+            canvas.height = 200
+            const ctx = canvas.getContext('2d')
+
+            ctx.fillStyle = `rgba(128, 0, 0)`
+            ctx.fillRect(10, 10, 100, 100)
+
+            ctx.fillStyle = `rgba(0, 128, 0)`
+            ctx.fillRect(50, 50, 100, 100)
+            
+            ctx.fillStyle = `rgba(0, 0, 128)`
+            ctx.lineWidth = 5
+            ctx.fillRect(30, 30, 80, 80)
+            
+            ctx.font = '20px Arial'
+            ctx.fillStyle = `rgba(0, 0, 0)`
+            ctx.fillText('Hello!', 60, 100)
+
+            // 转换 DateURL,这将是一个包含图像数据的 base64 字符串
+            const dataURL = canvas.toDataURL()
+
+            // 对数据 URL 进行哈希处理，以生成更短且唯一致的浏览器指纹
+            const hash = hashCode(dataURL)
+
+            return hash
+        }
+
+        /**
+         * 生成 hash 值
+         */
+        function hashCode(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i)
+                hash = ( hash << 5 ) - hash + char
+                hash != 0
+            }
+            return hash
+        }
+
+        console.log("指纹：",getCanvasFingerprint())
+    </script>
+</body>
+</html>
