@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "element-plus": "^2.3.14",
-    "vue": "^3.3.4"
+    "styled-components": "^6.0.8",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
   },
   "devDependencies": {
     "@types/node": "^20.6.0",

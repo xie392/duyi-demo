@@ -1,28 +1,22 @@
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-15 00:56:55
+ * @Description: 
+-->
 <script setup lang="ts">
-import { ref, markRaw } from 'vue'
-import Resize from './views/resize.vue'
-import ContextMenu from './views/contextmenu.vue'
-import watchEffect from './views/watchEffect.vue'
-
-const index = ref(0)
-const menus = ref([
-  { name: '封装 resize', component: markRaw(Resize) },
-  { name: '右键菜单组件的封装', component: markRaw(ContextMenu) },
-  { name: 'watchEffect', component: markRaw(watchEffect) }
-])
-
 </script>
 
 <template>
   <div class="main">
     <div class="sidebar">
       <ul class="nav">
-        <li v-for="v, i in menus" :key="i" class="nav-item" :class="index === i && 'nav-item-active'" @click="index = i">
-          {{ v.name }}</li>
+        <router-link v-for="v, i in $router.options.routes" :key="i" class="nav-item" :to="v.path">
+          {{ v.name }}
+        </router-link>
       </ul>
     </div>
     <div class="content">
-      <component :is="menus[index].component" />
+      <RouterView />
     </div>
   </div>
 </template>
@@ -52,6 +46,9 @@ const menus = ref([
       box-sizing: border-box;
       cursor: pointer;
       transition: 0.3s;
+      display: block;
+      text-decoration: none;
+      color: #333;
 
       &:hover {
         background: orange;
@@ -59,7 +56,7 @@ const menus = ref([
       }
     }
 
-    .nav-item-active {
+    .router-link-active {
       background: orange;
       color: #fff;
     }
@@ -67,6 +64,7 @@ const menus = ref([
 }
 
 .content {
+  flex: 1;
   padding: 1rem;
   box-sizing: border-box;
 }

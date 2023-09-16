@@ -51,7 +51,7 @@ onMounted(() => {
     containerRef.value && containerRef.value.addEventListener('contextmenu', open)
     window.addEventListener('click', close, true)
     window.addEventListener('contextmenu', close)
-
+    contextRef.value && useBeforeEnter(contextRef.value)
 })
 
 onUnmounted(() => {

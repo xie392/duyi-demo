@@ -1,8 +1,9 @@
-<!-- 
-  @description: 自定义指令 reszie
-  @see: https://v.douyin.com/ieaC4RoA/
- -->
-
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-15 00:58:29
+ * @Description: 自定义指令 reszie
+ * @See: https://v.douyin.com/ieaC4RoA/
+-->
 <script setup lang="ts">
 import { reactive } from 'vue'
 
@@ -17,8 +18,9 @@ const handleSizeChange = (size:{width:number,height:number}) => {
 
 <template>
   <div ref="testRef">
-    <h1>自定义指令</h1>
-    <div >width：{{ sizes.width }} Height：{{ sizes.height }}</div>
+    <h2>自定义指令 reszie</h2>
+    <div >width：{{ sizes.width }} Height：{{ sizes.height }} {{$route.meta}}</div>
     <textarea v-resize="handleSizeChange"></textarea>
   </div>
 </template>
+

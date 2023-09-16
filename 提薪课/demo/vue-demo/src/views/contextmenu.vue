@@ -19,17 +19,16 @@ const select = () => { }
 </script>
 
 <template>
-    <div>
-        <ContextMenu :menu="menu" @select="select">
-            <div class="context"></div>
-        </ContextMenu>
-    </div>
+    <h2>右键菜单组件的封装</h2>
+    <ContextMenu :menu="menu" @select="select">
+        <div class="context"></div>
+    </ContextMenu>
 </template>
 
 <style scoped>
 .context {
-    width: 300px;
-    height: 200px;
+    width: 600px;
+    height: 400px;
     background: orange;
 }
 </style>

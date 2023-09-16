@@ -20,6 +20,7 @@ watchEffect(() => {
 </script>
 
 <template>
+    <h2>watchEffect 中的异步问题</h2>
    <div class="container">
       <video src="@/assets/ikun.mp4" controls ref="videoRef" width="400" ></video>
       <div class="btns">
