@@ -1,4 +1,9 @@
-
+/*
+ * @Author: xie392
+ * @Date: 2023-09-16 19:31:24
+ * @Description: 如何封装命令式组件 
+ * @See: https://v.douyin.com/ie96oemu/
+ */
 import { Component, createApp } from "vue"
 import MessageBox from "@/components/message-box.vue"
 

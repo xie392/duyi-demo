@@ -1,8 +1,10 @@
-/**
- * 链式调用和延迟执行
- * @see:https://v.douyin.com/ieaCTbNF/
- * @param {string} name 
+/*
+ * @Author: xie392
+ * @Date: 2023-09-14 20:23:17
+ * @Description: 链式调用和延迟执行
+ * @See: https://v.douyin.com/ieaCTbNF/
  */
+
 function arrange(name) {
     // 任务队列
     const tasks = []

@@ -1,0 +1,101 @@
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-17 14:29:53
+ * @Description: 卡片翻动, 
+ * @Tips: 脑子愚笨，看不懂视频，自己实现不出来，以后简历只能写：见过 CSS
+ * @See: https://v.douyin.com/ie9CT14R/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>卡片翻动</title>
+    <style>
+        body {
+            margin: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-container {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #d7d7d7;
+            position: relative;
+            line-height: 100px;
+            font-size: 54px;
+            z-index: 1;
+        }
+
+        .card-container::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to bottom, #000, #fff);
+            margin-top: -1px;
+            z-index: 99;
+        }
+
+
+        .card {
+            position: absolute;
+            width: 100%;
+            height: 50%;
+            left: 0;
+            top: 0;
+            transform-style: preserve-3d;
+            text-align: center;
+            overflow: hidden;
+            line-height: 100px;
+            background: #fff;
+            /* box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5); */
+            transform-origin: center bottom;
+            z-index: -1;
+            /* animation: feBlend 1s linear infinite; */
+            perspective: 1000px;
+            /* animation-fill-mode: none; */
+            transform: rotateX(180deg);
+        }
+
+        @keyframes feBlend {
+            0% {
+                transform: rotateX(0deg);
+            }
+            100% {
+                transform: rotateX(180deg) scaleX(1.01);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card-container">
+        <div class="card"></div>
+        <div class="text">4</div>
+    </div>
+
+    <script>
+        const cards = document.querySelector('.card')
+        const cardItem = document.querySelector('.card-item')
+        const text = document.querySelector('.text')
+
+        setInterval(() => {
+            const now = new Date().getSeconds()
+            text.textContent = now
+        }, 1000)
+    </script>
+</body>
+
+</html>
