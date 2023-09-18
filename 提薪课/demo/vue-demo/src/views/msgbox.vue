@@ -16,6 +16,7 @@ const open = () => {
 </script>
 
 <template>
+    <h2>如何封装命令式组件</h2>
     <el-button type="primary" @click="open">打开弹窗</el-button>
 </template>
 

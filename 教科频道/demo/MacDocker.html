@@ -1,0 +1,110 @@
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-18 21:16:42
+ * @Description: mac docker 效果
+ * @See: 
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mac docker 效果</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: url(./assets/cover.webp) center center no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            background-color: rgba(255, 255, 255, 0.4);
+            border-radius: 12px;
+            /* border: 1px solid rgba(209, 213, 219, 0.3); */
+            padding: 0.4rem 1rem;
+            box-sizing: border-box;
+            /* min-width: 1000px; */
+            display: flex;
+            align-items: end;
+            height: 60px;
+        }
+
+        .item {
+            background: var(--bg,#f36);
+            width: calc(var(--i,1) * 50px);
+            height: calc(var(--i,1) * 50px);
+            margin-bottom: calc(var(--i,1) * 15px - 15px);
+            border-radius: 10px;
+            cursor: pointer;
+            transform: scale(1);
+        }
+
+        /* .item:hover {
+            transform: scale(1.1);
+        } */
+
+        .gap {
+            width: calc(var(--i,1) * 10px);
+            height: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <script>
+        /**
+         * 随机生成颜色
+         * @returns string
+         */
+        function randomColor() {
+            return '#' + Math.floor(Math.random() * 16777215).toString(16);
+        }
+
+        const container = document.querySelector('.container')
+
+        // 随机生成 15 个元素
+        Array.from({length: 15}).forEach((_,i) => {
+            const el = `
+            <div class="item" style="--bg:${randomColor()};"></div>
+            <div class="gap"></div>
+            `
+            container.insertAdjacentHTML('beforeend', el)
+        })
+
+        const item = document.querySelectorAll('.item')
+
+        // 受影响的元素
+        const els = []
+
+        item.forEach((el,i) => {
+            // 鼠标移入
+            el.addEventListener('mouseenter',(e)=> {
+                console.log("mouseenter",e.target,i,el);
+
+                // 找到受影响的元素
+                // els.push(el)
+                // console.log();
+
+            })
+            // 鼠标移出
+            el.addEventListener('mouseleave',(e)=> {
+                console.log("mouseleave",e);
+            })
+        })
+
+        console.log(Math.cos(1));
+
+    </script>
+</body>
+
+</html>

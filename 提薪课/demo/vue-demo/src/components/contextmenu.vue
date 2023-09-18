@@ -39,7 +39,10 @@ const open = (e: MouseEvent) => {
     }
 }
 
-const close = () => {
+const close = (e: MouseEvent) => {
+    // 这里是阻止默认行为，不阻止的话鼠标右键快速点击会触发浏览器默认行为
+    e.preventDefault()
+    e.stopPropagation()
     show.value = false
     if (contextRef.value) {
         useBeforeEnter(contextRef.value)

@@ -13,7 +13,7 @@ const defer = useDefer(1000)
 
 <template>
     <div>
-        <h1>Defer</h1> 
+        <h1>使用defer优化白屏时间 </h1> 
         <div v-for="i in 1000" :key="i" class="list-all">
             <div style="width: 40px;"> {{ i < 10 ? '0' + i : i }}</div>
             <Defer v-if="defer(i)" class="list"/>
