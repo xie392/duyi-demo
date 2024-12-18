@@ -1,1 +1,0 @@
-console.log("脚本2")
