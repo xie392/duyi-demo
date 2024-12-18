@@ -12,6 +12,8 @@ import {
 } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
+import path from 'path'
+import fs from 'fs'
 
 const geistSans = localFont({
     src: '../fonts/GeistVF.woff',
@@ -35,6 +37,11 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode
 }>) {
+    const filePath = path.join(process.cwd(), '/posts')
+    // 读取整个目录
+    const files = fs.readdirSync(filePath)
+    console.log('file', files)
+
     return (
         <html lang="en">
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -57,9 +64,7 @@ export default function RootLayout({
                                 </BreadcrumbList>
                             </Breadcrumb>
                         </header>
-                        <div className="flex flex-1 flex-col gap-4 p-4">
-                           {children}
-                        </div>
+                        <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
                     </SidebarInset>
                 </SidebarProvider>
             </body>
