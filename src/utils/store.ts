@@ -15,7 +15,7 @@ export type SetStoreState<T> = (
     replace?: boolean | undefined
 ) => void
 
-export function createPersistStore<T extends object, M>(
+export function createPersistStore<T extends object, M = any>(
     state: T,
     methods: (set: SetStoreState<T & MakeUpdater<T>>, get: () => T & MakeUpdater<T>) => M,
     persistOptions: SecondParam<typeof persist<T & M & MakeUpdater<T>>>

@@ -1,3 +1,5 @@
+'use client'
+
 import { Search } from "lucide-react"
 
 import { Label } from "@/components/ui/label"
