@@ -1,9 +1,6 @@
-<!--
- * @Author: xie392
- * @Date: 2023-09-17 16:44:57
- * @Description: JS中的文档注释
- * @See: https://v.douyin.com/ie9n8uDC/
--->
+---
+title: JS中的文档注释
+---
 
 ## 安装
 

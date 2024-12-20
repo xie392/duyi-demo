@@ -83,7 +83,6 @@ export function removeFileExtensionAndKeepPath(filePath: string): string {
     return path.parse(filePath).dir + '/' + path.parse(filePath).name
 }
 
-
 /**
  * 生成路由
  * @param menu
@@ -110,15 +109,14 @@ export function extractMDXMenuPaths() {
     return paths
 }
 
-
 /**
  * 获取文件内容
- * @param {MDXParams} params 
+ * @param {MDXParams} params
  * @returns
  */
 export function getMDXContent(filePath: string[]): string {
-    const basePath = path.join(process.cwd(), MDX_CONFIG.BASE_PATH, parsePath(filePath))
-    console.log("basePath", basePath);
+    const basePath = path.join(process.cwd(), 'public', parsePath(filePath) + '.md')
+    console.log('basePath', basePath)
     // 读取文件
     const content = fs.readFileSync(basePath, 'utf-8')
     return content
@@ -130,7 +128,7 @@ export function getMDXContent(filePath: string[]): string {
  * @returns MDXRoutes[]
  */
 export function generateRoutes(menu: MenuItem[]): MDXRoutes[] {
-    const routes: { name: string, path: string, ext: string }[] = []
+    const routes: { name: string; path: string; ext: string }[] = []
     const generateRoutes = (menu: MenuItem[]): void => {
         menu.forEach((item) => {
             if (item.type === FileType.File) {
@@ -156,5 +154,5 @@ export function generateRoutes(menu: MenuItem[]): MDXRoutes[] {
  * @param {string} name
  */
 export function matchRouteByName(menu: MenuItem[], name: string): MenuItem | undefined {
-    return menu.find(item => item.title === name)
+    return menu.find((item) => item.title === name)
 }

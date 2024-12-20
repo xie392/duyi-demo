@@ -1,9 +1,9 @@
-import { MDX_CONFIG } from "@/config/mdx"
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { MDX_CONFIG } from '@/config/mdx'
+import { clsx, type ClassValue } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+    return twMerge(clsx(inputs))
 }
 
 /**
@@ -11,8 +11,8 @@ export function cn(...inputs: ClassValue[]) {
  * @param url
  */
 export function parsePath(url: string[]): string {
-  const path = url.join('/')
-  return decodeURIComponent(path)
+    const path = `/${MDX_CONFIG.SLICE_NAME}/` + url.join('/')
+    return decodeURIComponent(path)
 }
 
 /**
@@ -21,8 +21,15 @@ export function parsePath(url: string[]): string {
  * @param {string} path2
  * @returns
  */
-export function isSamePath(path1: string[], path2: string): boolean {
-  const p1 = `/${MDX_CONFIG.SLICE_NAME}/` + parsePath(path1)
-  return p1 === path2
+export function isSamePath(path1: string, path2: string): boolean {
+    return path1 === path2
 }
 
+/**
+ * 解码路径
+ * @param {string[]} path
+ * @returns string[]
+ */
+export function decodePath(path: string[]): string[] {
+    return path.map(decodeURIComponent)
+}

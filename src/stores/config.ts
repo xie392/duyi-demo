@@ -1,16 +1,14 @@
 import { createPersistStore } from '@/utils/store'
-import { MDXRoutes, MenuItem } from '@/types/mdx'
-import { create } from 'zustand'
+// import { MDXRoutes, MenuItem } from '@/types/mdx'
+// import { persist } from 'zustand/middleware'
 
 interface ConfigState {
-    navMain: MenuItem[]
-    routes: MDXRoutes[]
+    openKeys: string[]
 }
 
-interface ConfigActions {
-    update: (state: Partial<ConfigState>) => void
-}
-
+// interface ConfigActions {
+//     update: (state: Partial<ConfigState>) => void
+// }
 
 // export const useConfigStore = create<ConfigState & ConfigActions>((set) => {
 //     const initialState: ConfigState = {
@@ -29,17 +27,15 @@ interface ConfigActions {
 // }
 // )
 
-
 export const useConfigStore = createPersistStore<ConfigState>(
     {
-        navMain: [],
-        routes: []
+        openKeys: []
     },
-    (set) => ({
-
-    }),
+    () => ({}),
     {
         name: 'config',
-        version: 1
-    }
+        version: 1,
+        // TODO: 存到 sessionStorage
+        // storage: persist
+    }   
 )

@@ -1,0 +1,177 @@
+/* @import './mdx/blocks.css';
+@import './mdx/code.css';
+@import './mdx/lists.css';
+@import './mdx/table.css';
+@import './mdx/typography.css'; */
+
+.mdx-container details {
+    @apply block;
+}
+
+.mdx-container summary {
+    @apply list-item;
+}
+
+.mdx-container a {
+    background-color: initial;
+}
+
+.mdx-container a:active,
+.mdx-container a:hover {
+    outline-width: 0;
+}
+
+.mdx-container strong {
+    @apply font-bold;
+    font-weight: bolder;
+}
+
+.mdx-container h1 {
+    @apply text-2xl my-3;
+}
+
+.mdx-container img {
+    @apply border-none;
+}
+
+.mdx-container code,
+.mdx-container kbd {
+    @apply font-mono text-sm;
+}
+
+.mdx-container hr {
+    box-sizing: initial;
+    @apply h-0 overflow-visible;
+}
+
+.mdx-container input {
+    @apply m-0;
+    font: inherit;
+}
+
+.mdx-container [type='checkbox'] {
+    @apply box-border p-0;
+}
+
+.mdx-container * {
+    @apply box-border;
+}
+
+.mdx-container a {
+    @apply text-blue-600 no-underline;
+}
+
+.mdx-container a:hover {
+    @apply underline;
+}
+
+.mdx-container strong {
+    @apply font-semibold;
+}
+
+.mdx-container hr {
+    @apply my-4 bg-transparent border-0 border-b border-gray-300;
+}
+
+.mdx-container table {
+    @apply w-full overflow-auto border-collapse;
+}
+
+.mdx-container td,
+.mdx-container th {
+    @apply p-2 border border-gray-300;
+}
+
+.mdx-container details summary {
+    @apply cursor-pointer;
+}
+
+.mdx-container kbd {
+    @apply inline-block px-1 py-0.5 text-xs font-mono text-gray-800 bg-gray-100 border border-gray-300 rounded shadow-sm;
+}
+
+.mdx-container h1,
+.mdx-container h2,
+.mdx-container h3,
+.mdx-container h4,
+.mdx-container h5,
+.mdx-container h6 {
+    @apply mt-6 mb-4 font-semibold leading-tight;
+}
+
+.mdx-container h1 {
+    @apply text-2xl;
+}
+
+.mdx-container h2 {
+    @apply text-xl;
+}
+
+.mdx-container h3 {
+    @apply text-lg;
+}
+
+.mdx-container h4 {
+    @apply text-base;
+}
+
+.mdx-container h5 {
+    @apply text-sm;
+}
+
+.mdx-container h6 {
+    @apply text-xs text-gray-600;
+}
+
+.mdx-container p {
+    @apply my-4 leading-8;
+}
+
+.mdx-container blockquote {
+    @apply px-4 text-gray-600 border-l-4 border-primary bg-primary/10 py-1 my-6 rounded-lg;
+}
+
+.mdx-container ol {
+    @apply list-decimal;
+}
+
+.mdx-container ul {
+    @apply list-disc;
+}
+
+.mdx-container ol,
+.mdx-container ul {
+    @apply pl-8 my-5;
+}
+
+
+.mdx-container ol li,
+.mdx-container ul li {
+    @apply my-3;
+}
+
+.mdx-container dl dt {
+    @apply mt-4 text-base italic font-semibold;
+}
+
+.mdx-container dl dd {
+    @apply px-4 mb-4;
+}
+
+.mdx-container img {
+    @apply max-w-full bg-white;
+}
+
+.mdx-container code {
+    @apply px-1 py-0.5 bg-gray-100 font-mono rounded mx-1;
+}
+
+
+.mdx-container pre {
+    @apply whitespace-pre-wrap;
+}
+
+
+.mdx-container pre code {
+    @apply bg-transparent text-inherit p-0 shadow-none leading-6 text-base;
+}

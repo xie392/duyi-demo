@@ -1,9 +1,4 @@
-<!--
- * @Author: xie392
- * @Date: 2023-09-17 23:17:11
- * @Description: 你真的理解虚拟DOM吗
- * @See: https://v.douyin.com/iexAfhJT/
--->
+
 
 ## 为什么需要虚拟 DOM 
 

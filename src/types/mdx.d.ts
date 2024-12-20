@@ -22,3 +22,7 @@ export interface MDXRoutes {
     path: string
     ext: string
 }
+
+export interface MDXComponentProps {
+    children: React.ReactNode
+}

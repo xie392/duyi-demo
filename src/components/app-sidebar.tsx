@@ -17,17 +17,19 @@ import {
 import Link from 'next/link'
 import { FileType } from '@/utils/enum'
 import { MenuItem } from '@/types/mdx'
-import { isSamePath } from '@/lib/utils'
+// import { isSamePath } from '@/lib/utils'
 import { Icon } from '@/components/ui/icon'
 import { useParams } from 'next/navigation'
 import { useCallback, useContext } from 'react'
 import { AppContext } from '@/context/app-context'
+import { CollapsibleMenu } from '@/components/collapsible-menu'
+import { ScrollArea } from '@/components/ui/scroll-area'
 
 const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) => {
     const LinkButton = useCallback((item: MenuItem) => {
-        const Comp = item.type === FileType.File ? Link : 'div'
+        const Comp = item.type === FileType.File ? 'button' : 'div'
         return (
-            <Comp href={item.url} className="flex w-full">
+            <Comp className="flex w-full">
                 <Icon name={item.type === FileType.File ? 'File' : 'Folder'} />
                 <span className="select-none">{item.title}</span>
             </Comp>
@@ -40,7 +42,7 @@ const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) =>
                 <CollapsibleTrigger asChild>
                     <SidebarMenuButton
                         tooltip={item.title}
-                        isActive={isSamePath(path, item.url)}
+                        // isActive={isSamePath(path, item.url)}
                         asChild
                         data-state={item.url.includes(item.title) ? 'open' : 'closed'}
                     >
@@ -52,7 +54,9 @@ const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) =>
                         <SidebarMenuSub className="px-0 pl-3 w-full mx-0 border-transparent">
                             <GenerateMenu items={item.items} path={path} />
                         </SidebarMenuSub>
-                    ) : (
+                    ) : null}
+
+                    {!item.items?.length && item.type === FileType.Dir && (
                         <p className="pl-8 text-gray-500 text-xs my-2">这里什么都没有...</p>
                     )}
                 </CollapsibleContent>
@@ -64,6 +68,10 @@ const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) =>
 export const AppSidebar = () => {
     const { path } = useParams()
     const { menus } = useContext(AppContext)
+
+    const onOpenChange = (keys: string[]) => {
+        console.log(keys)
+    }
 
     return (
         <Sidebar>
@@ -77,12 +85,14 @@ export const AppSidebar = () => {
                 <SearchForm />
             </SidebarHeader>
             <SidebarContent className="gap-0">
-                <SidebarGroup>
-                    <SidebarGroupLabel>案例</SidebarGroupLabel>
-                    <SidebarMenu>
-                        <GenerateMenu items={menus} path={path as string[]} />
-                    </SidebarMenu>
-                </SidebarGroup>
+                <ScrollArea>
+                    <SidebarGroup>
+                        <SidebarGroupLabel>案例</SidebarGroupLabel>
+                        <SidebarMenu className="px-2">
+                            <CollapsibleMenu items={menus} path={path as string[]} onOpenChange={onOpenChange} />
+                        </SidebarMenu>
+                    </SidebarGroup>
+                </ScrollArea>
             </SidebarContent>
             <SidebarRail />
         </Sidebar>
