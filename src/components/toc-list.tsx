@@ -19,7 +19,7 @@ interface Title {
     level: number
 }
 
-export const TitleList = ({ id = 'mdx-container' }: TitleListProps) => {
+export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
     const [titles, setTitles] = useState<Title[]>([])
     const [activeIndex, setActiveIndex] = useState<number>(0)
 
@@ -31,22 +31,18 @@ export const TitleList = ({ id = 'mdx-container' }: TitleListProps) => {
         if (!containerElement) return
         const titleElements = containerElement.querySelectorAll('h1,h2,h3,h4,h5,h6')
 
-        if(!scrollRef.current) return
-        scrollRef.current.style.display = 'none'
-
-        // const sidebarElement = document.getElementById(sidebarId)
-        // if (!sidebarElement) return
-        // if (!titleElements.length) {
-        //     sidebarElement.style.display = 'none'
-        //     return
-        // }
+        if (!scrollRef.current) return
+        if (!titleElements.length) {
+            scrollRef.current.style.display = 'none'
+            return
+        }
 
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting && siderbarRef.current) {
-                        console.log("entry.intersectionRatio ",entry.intersectionRatio );
-                        
+                        console.log('entry.intersectionRatio ', entry.intersectionRatio)
+
                         if (entry.intersectionRatio >= 0.75) {
                             const index = list.findIndex((item) => item.id === entry.target.id)
                             if (index === -1) return
@@ -56,7 +52,7 @@ export const TitleList = ({ id = 'mdx-container' }: TitleListProps) => {
                     }
                 })
             },
-            { rootMargin: '0px 0px 0px 0px',threshold: 1 }
+            { rootMargin: '0px 0px 0px 0px', threshold: 1 }
         )
 
         const list: Title[] = Array.from(titleElements).map((element) => {

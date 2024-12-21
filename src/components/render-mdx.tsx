@@ -1,7 +1,7 @@
 import { getMDXContent } from '@/lib/mdx/read'
 import { compileMDX } from 'next-mdx-remote/rsc'
 import { CodeBlock } from '@/components/mdx/base/code-block'
-import { TitleList } from '@/components/title-list'
+import { TocList } from '@/components/toc-list'
 import '@/styles/mdx.css'
 
 interface RenderMDXProps {
@@ -29,7 +29,7 @@ export const RenderMDX = async ({ path }: Readonly<RenderMDXProps>) => {
             </div>
             <div className="min-w-80 w-auto xl:block hidden" id="mdx-sidebar">
                 <div className="fixed top-16 h-full p-5">
-                    <TitleList id="mdx-container"  />
+                    <TocList id="mdx-container"  />
                 </div>
             </div>
         </div>
