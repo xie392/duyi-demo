@@ -29,7 +29,7 @@ export const RenderMDX = async ({ path }: Readonly<RenderMDXProps>) => {
             </div>
             <div className="min-w-80 w-auto xl:block hidden" id="mdx-sidebar">
                 <div className="fixed top-16 h-full p-5">
-                    <TitleList id="mdx-container" sidebarId="mdx-sidebar" />
+                    <TitleList id="mdx-container"  />
                 </div>
             </div>
         </div>

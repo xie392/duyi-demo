@@ -10,7 +10,6 @@ const Ellipsis = dynamic(() => import('react-ellipsis-component'), { ssr: false 
 
 interface TitleListProps {
     id?: string
-    sidebarId?: string
 }
 
 interface Title {
@@ -20,7 +19,7 @@ interface Title {
     level: number
 }
 
-export const TitleList = ({ id = 'mdx-container', sidebarId = 'mdx-sidebar' }: TitleListProps) => {
+export const TitleList = ({ id = 'mdx-container' }: TitleListProps) => {
     const [titles, setTitles] = useState<Title[]>([])
     const [activeIndex, setActiveIndex] = useState<number>(0)
 
@@ -32,13 +31,15 @@ export const TitleList = ({ id = 'mdx-container', sidebarId = 'mdx-sidebar' }: T
         if (!containerElement) return
         const titleElements = containerElement.querySelectorAll('h1,h2,h3,h4,h5,h6')
 
-        const sidebarElement = document.getElementById(sidebarId)
-        if (!sidebarElement) return
+        if(!scrollRef.current) return
+        scrollRef.current.style.display = 'none'
 
-        if (!titleElements.length) {
-            sidebarElement.style.display = 'none'
-            return
-        }
+        // const sidebarElement = document.getElementById(sidebarId)
+        // if (!sidebarElement) return
+        // if (!titleElements.length) {
+        //     sidebarElement.style.display = 'none'
+        //     return
+        // }
 
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
