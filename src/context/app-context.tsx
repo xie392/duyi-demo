@@ -13,6 +13,6 @@ export const appState: AppState = {
 }
 
 
-export interface AppContextData extends AppState { }
+// export interface AppContextData extends AppState { }
 
-export const AppContext = createContext<AppContextData>(appState)
+export const AppContext = createContext<AppState>(appState)

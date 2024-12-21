@@ -38,6 +38,7 @@
         "react-code-blocks": "^0.1.6",
         "react-dom": "19.0.0-rc-66855b96-20241106",
         "react-ellipsis-component": "^1.1.11",
+        "react-hot-toast": "^2.4.1",
         "rehype-mdx-code-props": "^3.0.1",
         "tailwind-merge": "^2.5.4",
         "tailwindcss-animate": "^1.0.7",
