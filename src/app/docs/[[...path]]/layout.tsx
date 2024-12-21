@@ -2,7 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { extractMDXMenuPaths, generateMdxDirsToMenu, generateRoutes } from '@/lib/mdx/read'
 import { MDXPath } from '@/types/mdx'
-import { AppProvider } from '@/components/app-provider'
+import { AppProvider } from '@/components/provider/app-provider'
 import { DocsHeader } from '@/components/layout/docs-header'
 
 export const dynamicParams = false

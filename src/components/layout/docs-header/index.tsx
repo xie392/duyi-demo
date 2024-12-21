@@ -14,7 +14,6 @@ import { Fragment, useMemo } from 'react'
 
 export const DocsHeader = () => {
     const { path } = useParams()
-    console.log('DocsHeader', path)
 
     const paths = useMemo(() => {
         if (Array.isArray(path)) {

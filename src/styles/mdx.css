@@ -96,7 +96,7 @@
 .mdx-container h4,
 .mdx-container h5,
 .mdx-container h6 {
-    @apply mt-6 mb-4 font-semibold leading-tight;
+    @apply mb-4 font-semibold leading-tight -mt-[64px] pt-[80px];
 }
 
 .mdx-container h1 {

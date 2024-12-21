@@ -17,12 +17,11 @@ import {
 import Link from 'next/link'
 import { FileType } from '@/utils/enum'
 import { MenuItem } from '@/types/mdx'
-// import { isSamePath } from '@/lib/utils'
 import { Icon } from '@/components/ui/icon'
 import { useParams } from 'next/navigation'
 import { useCallback, useContext } from 'react'
 import { AppContext } from '@/context/app-context'
-import { CollapsibleMenu } from '@/components/collapsible-menu'
+import { CollapsibleMenu } from '@/components/sidebar-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
 const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) => {
@@ -69,10 +68,6 @@ export const AppSidebar = () => {
     const { path } = useParams()
     const { menus } = useContext(AppContext)
 
-    const onOpenChange = (keys: string[]) => {
-        console.log(keys)
-    }
-
     return (
         <Sidebar>
             <SidebarHeader>
@@ -89,7 +84,7 @@ export const AppSidebar = () => {
                     <SidebarGroup>
                         <SidebarGroupLabel>案例</SidebarGroupLabel>
                         <SidebarMenu className="px-2">
-                            <CollapsibleMenu items={menus} path={path as string[]} onOpenChange={onOpenChange} />
+                            <CollapsibleMenu items={menus} path={path as string[]} />
                         </SidebarMenu>
                     </SidebarGroup>
                 </ScrollArea>
