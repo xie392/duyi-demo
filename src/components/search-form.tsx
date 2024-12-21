@@ -1,30 +1,62 @@
 'use client'
+import { Button } from '@/components/ui/button'
+import { Icon } from '@/components/ui/icon'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command'
+import { useContext, useEffect, useState } from 'react'
+import { AppContext } from '@/context/app-context'
+import { searchDocs } from '@/lib/utils'
+import { MenuItem } from '@/types/mdx'
+import Link from 'next/link'
 
-import { Search } from "lucide-react"
+export const SearchForm = () => {
+    const { menus } = useContext(AppContext)
+    const [keyword, setKeyword] = useState<string>('')
+    const [searchResult, setSearchResult] = useState<MenuItem[]>([])
 
-import { Label } from "@/components/ui/label"
-import {
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarInput,
-} from "@/components/ui/sidebar"
+    useEffect(() => {
+        setSearchResult(searchDocs(menus, keyword))
+    }, [keyword])
 
-export function SearchForm({ ...props }: React.ComponentProps<"form">) {
-  return (
-    <form {...props}>
-      <SidebarGroup className="py-0">
-        <SidebarGroupContent className="relative">
-          <Label htmlFor="search" className="sr-only">
-            Search
-          </Label>
-          <SidebarInput
-            id="search"
-            placeholder="Search the docs..."
-            className="pl-8"
-          />
-          <Search className="pointer-events-none absolute left-2 top-1/2 size-4 -translate-y-1/2 select-none opacity-50" />
-        </SidebarGroupContent>
-      </SidebarGroup>
-    </form>
-  )
+    return (
+        <Dialog>
+            <DialogTrigger asChild>
+                <Button
+                    className="relative mr-1 hidden w-full items-center justify-start bg-transparent text-sm md:flex rounded text-gray-400"
+                    variant="outline"
+                >
+                    <Icon name="Search" />
+                    <span className="inline-flex">搜索文档...</span>
+                </Button>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>搜索文档</DialogTitle>
+                </DialogHeader>
+
+                <Command>
+                    <CommandInput
+                        placeholder="请输入你要搜索的内容"
+                        value={keyword}
+                        onValueChange={(search) => setKeyword(search)}
+                    />
+                    <CommandList>
+                        <CommandEmpty>没有搜索结果</CommandEmpty>
+                        {searchResult.length > 0 && (
+                            <CommandGroup heading="搜索结果">
+                                {searchResult.map((item) => (
+                                    <CommandItem className="flex justify-between items-center" key={item.title} asChild>
+                                        <Link href={item.url}>
+                                            {item.title}
+                                            <Icon name="File" className="mr-1 text-gray-500" />
+                                        </Link>
+                                    </CommandItem>
+                                ))}
+                            </CommandGroup>
+                        )}
+                    </CommandList>
+                </Command>
+            </DialogContent>
+        </Dialog>
+    )
 }

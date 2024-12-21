@@ -1,41 +1,24 @@
+import { ThemeColor } from '@/utils/enum'
 import { createPersistStore } from '@/utils/store'
-// import { MDXRoutes, MenuItem } from '@/types/mdx'
-// import { persist } from 'zustand/middleware'
-
 interface ConfigState {
-    openKeys: string[]
+    theme: ThemeColor
+    isDark: boolean
 }
-
-// interface ConfigActions {
-//     update: (state: Partial<ConfigState>) => void
-// }
-
-// export const useConfigStore = create<ConfigState & ConfigActions>((set) => {
-//     const initialState: ConfigState = {
-//         navMain: [],
-//         routes: []
-//     }
-
-//     const actions: ConfigActions = {
-//         update: (state) => set((prev) => ({ ...prev, ...state }))
-//     }
-
-//     return {
-//         ...initialState,
-//         ...actions
-//     }
-// }
-// )
 
 export const useConfigStore = createPersistStore<ConfigState>(
     {
-        openKeys: []
+        theme: ThemeColor.Light,
+        isDark: false
     },
-    () => ({}),
+    (set, get) => ({
+        toggleTheme: () => {
+            const { isDark, theme } = get()
+            const newTheme = isDark ? ThemeColor.Light : ThemeColor.Dark
+            set({ theme: newTheme, isDark: !isDark })
+        }
+    }),
     {
         name: 'config',
-        version: 1,
-        // TODO: 存到 sessionStorage
-        // storage: persist
-    }   
+        version: 1
+    }
 )

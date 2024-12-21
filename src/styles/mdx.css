@@ -128,7 +128,7 @@
 }
 
 .mdx-container blockquote {
-    @apply px-4 text-gray-600 border-l-4 border-primary bg-primary/10 py-1 my-6 rounded-lg;
+    @apply px-4 text-gray-600 border-l-4 border-primary bg-primary/10 py-1 my-6 rounded-lg dark:text-neutral-200;
 }
 
 .mdx-container ol {
@@ -163,7 +163,7 @@
 }
 
 .mdx-container code {
-    @apply px-1 py-0.5 bg-gray-100 font-mono rounded mx-1;
+    @apply px-1 py-0.5 bg-gray-100 font-mono rounded mx-1 dark:bg-neutral-600;
 }
 
 
@@ -173,5 +173,18 @@
 
 
 .mdx-container pre code {
-    @apply bg-transparent text-inherit p-0 shadow-none leading-6 text-base;
+    @apply bg-transparent text-inherit p-0 shadow-none leading-6 text-base dark:bg-transparent;
+}
+
+
+.mdx-container iframe::-webkit-scrollbar {
+    width: 4px;
+}
+
+.mdx-container iframe::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.mdx-container iframe::-webkit-scrollbar-thumb {
+    background-color: #888;
 }

@@ -23,8 +23,8 @@ export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
     const [titles, setTitles] = useState<Title[]>([])
     const [activeIndex, setActiveIndex] = useState<number>(0)
 
-    const siderbarRef = useRef<HTMLDivElement>(null)
     const scrollRef = useRef<HTMLDivElement>(null)
+    const listRef = useRef<HTMLLIElement[]>([])
 
     useEffect(() => {
         const containerElement = document.getElementById(id)
@@ -40,26 +40,20 @@ export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
                 entries.forEach((entry) => {
-                    if (entry.isIntersecting && siderbarRef.current) {
-                        console.log('entry.intersectionRatio ', entry.intersectionRatio)
-
-                        if (entry.intersectionRatio >= 0.75) {
-                            const index = list.findIndex((item) => item.id === entry.target.id)
-                            if (index === -1) return
-                            siderbarRef.current.style.transform = `translateY(${index * 40 + 40}px)`
-                            setActiveIndex(index)
-                        }
+                    if (entry.isIntersecting) {
+                        const index = list.findIndex((item) => item.id === entry.target.id)
+                        if (index === -1) return
+                        setActiveIndex(index)
                     }
                 })
             },
-            { rootMargin: '0px 0px 0px 0px', threshold: 1 }
+            { rootMargin: '0px 0px -50% 0px', threshold: 1 }
         )
 
         const list: Title[] = Array.from(titleElements).map((element) => {
             const id = element.textContent ?? ''
             element.id = id
             observer.observe(element)
-
             return {
                 id,
                 title: id,
@@ -69,28 +63,46 @@ export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
         })
 
         setTitles(list)
-        console.log('titleElements', list)
+
+        return () => {
+            titleElements.forEach((element) => observer.unobserve(element))
+            observer.disconnect()
+        }
     }, [])
+
+    useEffect(() => {
+        if (!listRef.current.length || !scrollRef.current) return
+        if (listRef.current.length < 10) return
+        const activeElement = listRef.current[activeIndex]
+        if (!activeElement) return
+        scrollRef.current.scrollTo({
+            top: activeElement.offsetHeight * (activeIndex - 5),
+            behavior: 'auto'
+        })
+    }, [activeIndex])
 
     return (
         <ScrollArea className="h-[480px]" ref={scrollRef}>
-            <div className="relative px-5">
-                <div className="sticky top-0 bg-white z-10 py-3 text-gray-500 font-bold">目录</div>
+            <div className="relative">
+                <div className="sticky top-0 bg-background z-10 py-3 text-gray-500 font-bold">目录</div>
                 <ul>
                     {titles.map((title, index) => (
                         <li
                             key={index}
                             className={cn(
-                                'py-2',
-                                title.level === 2 && 'pl-3',
-                                title.level === 3 && 'pl-6',
-                                title.level === 4 && 'pl-9',
-                                title.level === 5 && 'pl-12',
-                                title.level === 6 && 'pl-[12px]',
+                                'py-2 w-full pl-3 border-l border-gray-200',
+                                title.level === 2 && 'pl-6',
+                                title.level === 3 && 'pl-9',
+                                title.level === 4 && 'pl-12',
+                                title.level === 5 && 'pl-[60px]',
+                                title.level === 6 && 'pl-[72px]',
                                 {
-                                    'text-primary': activeIndex === index
+                                    'text-primary border-primary': activeIndex === index
                                 }
                             )}
+                            ref={(ref) => {
+                                if (ref) listRef.current[index] = ref
+                            }}
                         >
                             <Link href={title.herf} title={title.title}>
                                 <Ellipsis text={title.title} ellipsis maxLine={1} />
@@ -98,9 +110,6 @@ export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
                         </li>
                     ))}
                 </ul>
-                <div className="absolute left-0 bottom-0 w-0.5 bg-gray-200 h-full">
-                    <span className="flex w-0.5 h-6 bg-primary" ref={siderbarRef}></span>
-                </div>
             </div>
         </ScrollArea>
     )

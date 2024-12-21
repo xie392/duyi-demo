@@ -1,5 +1,7 @@
-import { CodeBlock } from "./base/code-block"
+import { CodeBlock } from './base/code-block'
+import { Iframe } from './base/iframe'
 
 export const components = {
-    pre: CodeBlock
+    pre: CodeBlock,
+    Iframe
 }
