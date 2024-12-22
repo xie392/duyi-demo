@@ -1,19 +1,20 @@
-// import { ThemeColor } from '@/utils/enum'
+import { ThemeColor } from '@/utils/enum'
 import { createPersistStore } from '@/utils/store'
 interface ConfigState {
-    // theme: ThemeColor
+    theme: ThemeColor
     isDark: boolean
 }
 
 export const useConfigStore = createPersistStore<ConfigState>(
     {
-        // theme: ThemeColor.Light,
+        theme: ThemeColor.Light,
         isDark: false
     },
     (set, get) => ({
         toggleTheme: () => {
             const { isDark } = get()
-            set({ isDark: !isDark })
+            const theme = isDark? ThemeColor.Light : ThemeColor.Dark
+            set({ theme, isDark: !isDark })
         }
     }),
     {
