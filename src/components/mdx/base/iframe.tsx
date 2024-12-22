@@ -3,17 +3,13 @@
 import { getCodeApi } from '@/api/code'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Icon } from '@/components/ui/icon'
-import { DetailedHTMLProps, IframeHTMLAttributes, useEffect, useMemo, useRef, useState } from 'react'
+import { DetailedHTMLProps, IframeHTMLAttributes, useRef, useState } from 'react'
 import { CodeBlock } from './code-block'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
-import { useAsync, useAsyncFn } from 'react-use'
+import { useAsync } from 'react-use'
 
-interface IFrameProps extends DetailedHTMLProps<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement> {
-    filename?: string
-}
-
-export const Iframe = ({ src = '', height = '350px', width = '100%', filename, ...props }: IFrameProps) => {
+export const Iframe = ({ src = '', height = '350px', width = '100%', ...props }: DetailedHTMLProps<IframeHTMLAttributes<HTMLIFrameElement>, HTMLIFrameElement>) => {
     const iframeRef = useRef<HTMLIFrameElement>(null)
     const [iframeShow, setIframeShow] = useState<boolean>(true)
     const state = useAsync(async () => getCodeApi({ path: src }))
