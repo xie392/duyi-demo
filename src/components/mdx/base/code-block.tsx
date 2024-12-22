@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils'
 import { useConfigStore } from '@/stores/config'
 import { Button } from '@/components/ui/button'
 import { Copied } from '@/components/ui/icon'
+import { themeLight } from '@/config/mdx'
 
 interface CodeBlockProps
     extends DetailedHTMLProps<HTMLAttributes<HTMLPreElement>, HTMLPreElement>,
@@ -37,13 +38,13 @@ export const CodeBlock = ({ children, words = [], lines = [], className = '' }: 
     }, [isCopied])
 
     const isDark = useConfigStore((state) => state.isDark)
-    const theme = useMemo(() => (isDark ? themes.oneDark : themes.oneLight), [isDark])
+    const theme = useMemo(() => (isDark ? themes.oneDark : themeLight), [isDark])
 
     return (
         <CodeBlockComp code={code} language={language} lines={lines} words={words} theme={theme}>
             <div
                 className={cn(
-                    'bg-gray-50 dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 mt-6 rounded-xl code-block relative',
+                    'bg-[#f9f9f9] dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 mt-6 rounded-xl code-block relative',
                     className
                 )}
             >

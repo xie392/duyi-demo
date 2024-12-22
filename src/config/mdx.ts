@@ -7,7 +7,7 @@ export const MDX_CONFIG = {
     SLICE_NAME: 'docs'
 }
 
-export const theme = {
+export const themeLight = {
     plain: {
         backgroundColor: '#202026'
     },
