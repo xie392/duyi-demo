@@ -169,22 +169,12 @@
 
 .mdx-container pre {
     @apply whitespace-pre-wrap;
+    font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 
 
 .mdx-container pre code {
-    @apply bg-transparent text-inherit p-0 shadow-none leading-6 text-base dark:bg-transparent;
+    @apply bg-transparent text-inherit p-0 shadow-none text-base dark:bg-transparent;
 }
 
 
-.mdx-container iframe::-webkit-scrollbar {
-    width: 4px;
-}
-
-.mdx-container iframe::-webkit-scrollbar-track {
-    background-color: #f1f1f1;
-}
-
-.mdx-container iframe::-webkit-scrollbar-thumb {
-    background-color: #888;
-}

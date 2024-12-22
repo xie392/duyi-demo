@@ -1,6 +1,6 @@
 ## 目录
 
-```shell
+```shell lines={[2]}
 |-- src
 |   |-- demo
 |   |   |-- 1.jpg
