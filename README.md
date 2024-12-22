@@ -26,7 +26,7 @@
 如果这个项目对您有帮助，并且您希望支持该项目的开发和维护，请随时扫描一下二维码进行捐赠。非常感谢您的捐款，谢谢！
 
 <div style="display: flex;">
-  <img width="300" alt="alipay" src="./public/images/alipay.jpg" />
-  <img width="300" alt="wechat" src="./public/images/wechat.jpg" />
+    <img width="220" alt="alipay" src="./public/images/alipay.jpg" />
+    <img width="200" alt="wechat" src="./public/images/wechat.jpg" />
 </div>
 
