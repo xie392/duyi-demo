@@ -168,7 +168,9 @@
 
 
 .mdx-container pre {
-    @apply whitespace-pre-wrap;
+    /* @apply whitespace-nowrap; */
+    /* @apply whitespace-pre-wrap overflow-x-auto; */
+    contain: paint;
     font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
 }
 

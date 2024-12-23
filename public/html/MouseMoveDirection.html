@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>鼠标移入方向</title>
+        <style>
+            body {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+            }
+
+            .bar {
+                width: 300px;
+                height: 300px;
+                background-color: red;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 24px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="bar" id="bar"></div>
+        <script>
+            const btn = document.querySelector('.bar')
+            const rect = btn.getBoundingClientRect()
+            const theta = Math.atan2(rect.height, rect.width)
+            let flag = false
+
+            btn.addEventListener('mousemove', (e) => {
+                if (flag) return
+                const x = e.offsetX - rect.width / 2
+                const y = rect.height / 2 - e.offsetY
+                const d = Math.atan2(y, x)
+                let str = ''
+                if (d >= -theta && d < theta) {
+                    console.log('right')
+                    str = 'right'
+                } else if (d >= theta && d < Math.PI - theta) {
+                    console.log('top')
+                    str = 'top'
+                } else if (d >= Math.PI - theta || d < -(Math.PI - theta)) {
+                    console.log('left')
+                    str = 'left'
+                } else {
+                    console.log('bottom')
+                    str = 'bottom'
+                }
+
+                bar.textContent = str
+
+                flag = true
+            })
+
+            btn.addEventListener('mouseleave', () => {
+                flag = false
+                bar.textContent = ''
+            })
+        </script>
+    </body>
+</html>

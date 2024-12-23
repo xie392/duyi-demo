@@ -1,0 +1,45 @@
+<!--
+ * @Author: xie392
+ * @Date: 2023-09-18 11:40:14
+ * @Description: 正则中的 lastIndex
+ * @See: https://v.douyin.com/iex37tYe/
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>正则中的 lastIndex</title>
+    <style>
+        #msg {
+            color: #f36;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        手机号：
+        <input type="text" id="phone">
+        <span id="msg"></span>
+    </p>
+
+    <script>
+        const msgEl = document.getElementById('msg')
+        const phoneEl = document.getElementById('phone')
+
+        const reg = /^1\d{10}$/g
+
+        phoneEl.addEventListener('input', function () {
+            // 手动设置 lastIndex。重新执行正则
+            reg.lastIndex = 0
+            const isTrue = reg.test(this.value)
+            msgEl.textContent = isTrue ? '' : '输入错误'
+        })
+
+    </script>
+
+</body>
+
+</html>

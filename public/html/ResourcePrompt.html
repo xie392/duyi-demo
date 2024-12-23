@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- 预先加载资源, 优先级低 -->
+        <link href="/html/css/CursorFollowing.css" rel="prefetch" />
+        <!-- 预先加载资源, 优先级高 -->
+        <link href="/html/css/CursorFollowing.css" rel="preload" />
+        <!-- 
+        可以使用 prefetch 或 preload 去下载一些 js 来做缓存 
+    -->
+        <link href="/html/js/1.js" rel="prefetch" />
+        <link href="/html/css/CursorFollowing.css" rel="modulepreload" />
+        <title>资源提示符</title>
+        <!-- 异步加载资源 -->
+        <script src="/html/js/1.js" async></script>
+        <!-- 等全部渲染完成再执行 -->
+        <script src="/html/js/2.js" defer></script>
+    </head>
+
+    <body>
+        <div id="app"></div>
+        <p id="content1"></p>
+        <p id="content2"></p>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                console.log('DomContentLoaded')
+                app.innerHTML = '资源提示符'
+            })
+        </script>
+    </body>
+</html>

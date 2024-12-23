@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>脚本加载失败重试</title>
+</head>
+
+<body>
+    <p id="content1"></p>
+    <p id="content2"></p>
+    <p id="content3"></p>
+
+    <p id="content4"></p>
+
+    <script>
+        const domains = ['a.com', 'b.com', 'c.com']
+        const entry = {}
+
+        // 需要在脚本加载失败的时候重试
+        window.addEventListener('error', (e) => {
+            // 过滤不属于脚本加载失败的错误
+            if(e.target.tagName !== 'SCRIPT' || e instanceof ErrorEvent) return
+
+            const url = new URL(e.target.src)
+            const name = url.pathname
+            if(!(name in entry)) {
+                entry[name] = 0
+            }
+            const index = entry[name]
+            if(index >= domains.length) return
+            const newDomain = domains[index]
+            url.host = newDomain
+            // 重试加载 要用 document.write 阻塞加载，防止脚本加载顺序错乱
+            document.write(`<script src="${url}">\<\/script>`)
+            entry[name] = index + 1
+            content4.innerHTML = `重试加载${name}，尝试${index+1}次`
+        },true)
+    </script>
+
+    <script src="/html/js/1.js"></script>
+    <script src="/errot-page/html/js/2.js"></script>
+    <script src="/html/js/3.js"></script>
+
+</body>
+
+</html>

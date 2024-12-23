@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>标签通信</title>
+        <style>
+            .btn {
+                padding: 0.3rem 1rem;
+                box-sizing: border-box;
+                border-radius: 4px;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: orange;
+                color: #fff;
+                margin: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <button class="btn" data-name="1.mp3">歌曲1</button>
+        <button class="btn" data-name="2.mp3">歌曲2</button>
+
+        <script>
+            const btns = document.querySelectorAll('.btn')
+
+            // 创建一个频道
+            const channel = new BroadcastChannel('music')
+
+            btns.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    const name = e.target.dataset.name
+                    const n = localStorage.getItem('music')
+                    console.log('n', n)
+                    if (!isNaN(n) && n > 0) {
+                        channel.postMessage(name)
+                    } else {
+                        window.open(`/html/tag-communication/2.html?name=${name}`, '_blank')
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

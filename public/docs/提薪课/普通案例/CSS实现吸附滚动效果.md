@@ -7,4 +7,4 @@
 
 ## 案例效果
 
-<Iframe src="/html/adsorption.html" />
+<Iframe src="/html/Adsorption.html" options={{ lines:[17,29,30] }}/>

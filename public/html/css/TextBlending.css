@@ -1,0 +1,25 @@
+body {
+    margin: 0;
+    background: #333;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+
+.text {
+    font-size: 100px;
+    color: #fff;
+    animation: showup 3s forwards;
+    filter: contrast(30);
+}
+
+@keyframes showup {
+    from {
+        letter-spacing: -50px;
+        filter: blur(10px);
+    }
+    to {
+        letter-spacing: 1px;
+        filter: blur(0px);
+    }
+}

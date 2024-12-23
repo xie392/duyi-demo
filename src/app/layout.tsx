@@ -16,7 +16,7 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
     return (
         <html lang="en">
-            <body className="antialiased">
+            <body className="w-full overflow-x-hidden">
                 {children}
                 <Toaster />
                 <Affix />

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>资源管理器</title>
+    </head>
+
+    <body>
+        <button class="btn">打开文件夹</button>
+        <div id="app"></div>
+        <script>
+            const btn = document.querySelector('.btn')
+
+            btn.addEventListener('click', async () => {
+                try {
+                    const handler = await showDirectoryPicker()
+                    const root = await processHandler(handler)
+                    // 获取文件内容
+                    let str = ''
+                    root.children.forEach((item) => {
+                        console.log(item)
+                        str += ` 文件名：${item.name} 类型：${item.kind} <br />`
+                    })
+                    app.innerHTML = str
+                    // const file = await root.children[0].getFile()
+                    // const reader = new FileReader()
+                    // reader.onload = () => {
+                    //     console.log(reader.result)
+                    // app.textContent = JSON.stringify(root.children.toJSON(), null, 2)
+                    // }
+                    // reader.readAsText(file,'utf-8')
+                } catch (error) {
+                    // 用户拒绝查看文件内容
+                    console.log(error)
+                }
+            })
+
+            async function processHandler(handler) {
+                if (handler.kind === 'file') {
+                    return handler
+                }
+                handler.children = []
+                // 获取文件夹中所有内容
+                const iter = await handler.entries()
+
+                for await (const iterator of iter) {
+                    // 递归处理
+                    const subHandler = await processHandler(iterator[1])
+                    // 将子文件夹添加到父文件夹
+                    handler.children.push(subHandler)
+                }
+                return handler
+            }
+        </script>
+    </body>
+</html>

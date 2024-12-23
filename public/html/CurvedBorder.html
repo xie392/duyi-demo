@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>弧形边框选项卡</title>
+
+        <style>
+            .tab {
+                width: 150px;
+                height: 40px;
+                margin: 0 auto;
+                background: orange;
+                border-radius: 10px 10px 0 0;
+                position: relative;
+                transform: perspective(30px) rotateX(21deg);
+                transform-origin: center bottom;
+            }
+
+            .tab::before,
+            .tab::after {
+                content: '';
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                bottom: 0;
+                background: orange;
+            }
+
+            .tab::before {
+                left: -10px;
+                /* 主要样式 */
+                background: radial-gradient(circle at 0 0, transparent 10px, orange 10px);
+            }
+
+            .tab::after {
+                right: -10px;
+                /* 主要样式 */
+                background: radial-gradient(circle at 100% 0, transparent 10px, orange 10px);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="tab"></div>
+    </body>
+</html>

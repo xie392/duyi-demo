@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>消除异步传染性</title>
+    </head>
+    <body>
+        <button id="btn">开始获取数据</button>
+        <br />
+        <div id="app"></div>
+
+        <script>
+            // 异步获取用户数据
+            async function getUser() {
+                // 从 /data/test.json 获取用户数据
+                return await fetch('/data/test.json')
+            }
+
+            // 调用 getUser 函数以获取用户数据并返回
+            async function m1() {
+                // 调用 getUser 函数获取用户数据
+                const user = await getUser()
+                // 返回获取到的用户数据
+                return user
+            }
+
+            // 调用 m1 函数以获取用户数据并返回
+            async function m2() {
+                // 调用 m1 函数获取用户数据
+                const user = await m1()
+                // 返回获取到的用户数据
+                return user
+            }
+
+            // 调用 m2 函数以获取用户数据并返回
+            async function m3() {
+                // 调用 m2 函数获取用户数据
+                const user = await m2()
+                // 返回获取到的用户数据
+                return user
+            }
+
+            // 主函数，记录用户数据
+            async function main() {
+                app.textContent = '正在获取用户数据...'
+                // 输出 1 到控制台
+                console.log(1)
+                // 调用 m3 函数获取用户数据
+                const user = await m3()
+                // 输出获取到的用户数据到控制台
+                console.log(user)
+                app.textContent = `用户数据:${JSON.stringify(user)}`
+            }
+
+            // 函数执行器，带缓存机制
+            function run(func) {
+                // 缓存机制，用于存储 fetch 结果
+                const cache = {
+                    status: 'pending',
+                    value: null
+                }
+
+                // 保存原始的 fetch 函数
+                const oldFetch = window.fetch
+
+                // 拦截 fetch 请求以实现缓存
+                window.fetch = function (...args) {
+                    try {
+                        // 如果有缓存，返回缓存数据
+                        if (cache.status === 'fulfilled') {
+                            return cache.value
+                        } else if (cache.status === 'rejected') {
+                            throw Promise.reject(cache.value)
+                        }
+                        // 进行实际的 fetch 请求
+                        const prom = oldFetch(...args)
+                            .then((resp) => resp.json())
+                            .then((res) => {
+                                // 更新缓存状态和值
+                                cache.status = 'fulfilled'
+                                cache.value = res
+                            })
+                            .catch((err) => {
+                                // 更新缓存状态和值
+                                cache.status = 'rejected'
+                                cache.value = err
+                            })
+                        // 抛出 promise 以便错误处理
+                        throw prom
+                    } catch (err) {
+                        // 如果捕获到 promise，执行 then 和 finally 处理
+                        if (err instanceof Promise) {
+                            err.then(func, func).finally(() => {
+                                // 还原原始的 fetch 函数
+                                window.fetch = oldFetch
+                            })
+                        }
+                    }
+                }
+                // 执行提供的函数
+                func()
+            }
+
+            // 使用主函数开始执行
+            // run(main)
+            btn.addEventListener('click', () => {
+                run(main)
+            })
+        </script>
+    </body>
+</html>

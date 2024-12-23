@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>模拟微任务</title>
+    </head>
+
+    <body>
+        <button id="btn">开始</button>
+        <p id="content"></p>
+
+        <script>
+            /**
+             * 将传入的函数放到队列中执行
+             * @param {Function} fn
+             */
+            function queueMicrotask(fn) {
+                // 判断浏览器是否支持 Promise
+                if (typeof Promise === 'function') {
+                    return Promise.resolve().then(fn)
+                }
+
+                // 判断浏览器是否支持 MutationObserver
+                if (typeof MutationObserver === 'function') {
+                    var ob = new MutationObserver(fn)
+                    var node = document.createTextNode('')
+                    ob.observe(node, {
+                        characterData: true
+                    })
+                    node.data = 1
+                    return
+                }
+
+                // 判断浏览器是否支持 process.nextTick
+                if (process && process.nextTick === 'function') {
+                    process.nextTick(fn)
+                    return
+                }
+
+                // 判断浏览器是否支持 setImmediate
+                if (typeof setImmediate === 'function') {
+                    setImmediate(fn)
+                    return
+                }
+
+                setTimeout(fn)
+            }
+
+            btn.addEventListener('click', () => {
+                let str = ''
+                setTimeout(() => {
+                    str += '3、宏任务执行完毕 <br/>'
+                }, 0)
+                queueMicrotask(() => {
+                    str += '2、微任务执行完毕 <br/>'
+                })
+                str += '1、同步任务执行完毕 <br/>'
+
+                // 等待所有任务执行完毕后，更新页面内容
+                setTimeout(() => {
+                    content.innerHTML = str
+                }, 0)
+            })
+        </script>
+    </body>
+</html>

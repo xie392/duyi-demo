@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import dynamic from 'next/dynamic'
+import { MDX_ID } from '@/utils/constants'
 
 const Ellipsis = dynamic(() => import('react-ellipsis-component'), { ssr: false })
 
@@ -19,7 +20,7 @@ interface Title {
     level: number
 }
 
-export const TocList = ({ id = 'mdx-container' }: TitleListProps) => {
+export const TocList = ({ id = MDX_ID }: TitleListProps) => {
     const [titles, setTitles] = useState<Title[]>([])
     const [activeIndex, setActiveIndex] = useState<number>(0)
 
