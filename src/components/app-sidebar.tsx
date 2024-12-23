@@ -23,6 +23,7 @@ import { useCallback, useContext } from 'react'
 import { AppContext } from '@/context/app-context'
 import { CollapsibleMenu } from '@/components/sidebar-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import Image from 'next/image'
 
 const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) => {
     const LinkButton = useCallback((item: MenuItem) => {
@@ -75,7 +76,7 @@ export const AppSidebar = () => {
                     href="/"
                     className="pl-2 mb-3 text-lg font-bold bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 bg-clip-text text-transparent"
                 >
-                    合集
+                    <Image src="/images/logo4.png" width={120} height={47}  alt="logo" />
                 </Link>
                 <SearchForm />
             </SidebarHeader>

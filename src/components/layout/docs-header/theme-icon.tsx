@@ -16,13 +16,16 @@ export const ThemeIcon = ({ className, iconClassName }: ThemeIconProps) => {
     const toggleTheme = useConfigStore((state) => state.toggleTheme)
 
     useEffect(() => {
-        document?.startViewTransition(() => {
-            document.documentElement.classList.toggle('dark', isDark)
-        })
-
-        if (!document?.startViewTransition) {
+        const performToggle = () => {
             document.documentElement.classList.toggle('dark', isDark)
         }
+
+        if (document?.startViewTransition) {
+            document.startViewTransition(performToggle)
+            return
+        }
+        
+        performToggle()
     }, [isDark])
 
     return (

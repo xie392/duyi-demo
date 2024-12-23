@@ -20,7 +20,6 @@
 
 > 本项目的代码参考均来自于渡一教育的抖音视频教程，如果你觉得本项目对你有帮助，请给我一个 star，谢谢。
 
-
 ## 赞助
 
 如果这个项目对您有帮助，并且您希望支持该项目的开发和维护，请随时扫描一下二维码进行捐赠。非常感谢您的捐款，谢谢！
@@ -30,3 +29,10 @@
     <img width="200" alt="wechat" src="./public/images/wechat.jpg" />
 </div>
 
+## 贡献者
+
+感谢所有为本项目作出贡献的同学！
+
+<a href="https://github.com/xie392/xie392/duyi-demo">
+  <img src="https://contrib.rocks/image?repo=xie392/duyi-demo" />
+</a>
