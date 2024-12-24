@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>3D Hover</title>
+        <style>
+            body {
+                margin: 0;
+            }
+
+            .container {
+                width: 100vw;
+                height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                perspective: 1000px;
+                background: #000;
+            }
+
+            .card {
+                width: 200px;
+                border-radius: 10px;
+                transform-style: preserve-3d;
+                transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+                transition: 0.3s;
+            }
+
+            .card img {
+                border-radius: inherit;
+                width: 100%;
+                object-fit: cover;
+            }
+
+            .card:hover {
+                box-shadow:
+                    -3px -3px 10px #54a29e,
+                    3px 3px 10px #a79d66;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="card">
+                <img src="/images/ikun.gif" alt="" srcset="" />
+            </div>
+        </div>
+
+        <script>
+            const card = document.querySelector('.card')
+            const yRange = [-10, 10]
+            const xRange = [-10, 10]
+
+            function getRotate(range, value, max) {
+                return (value / max) * (range[1] - range[0]) + range[0]
+            }
+
+            card.addEventListener('mousemove', (e) => {
+                console.log(e)
+                const { offsetX, offsetY } = e
+                const { offsetWidth, offsetHeight } = card
+                const ry = -getRotate(xRange, offsetX, offsetWidth)
+                const rx = getRotate(yRange, offsetY, offsetHeight)
+                card.style.setProperty('--ry', `${ry}deg`)
+                card.style.setProperty('--rx', `${rx}deg`)
+            })
+
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--ry', 0)
+                card.style.setProperty('--rx', 0)
+            })
+        </script>
+    </body>
+</html>

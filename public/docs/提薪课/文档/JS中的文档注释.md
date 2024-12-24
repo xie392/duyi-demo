@@ -1,5 +1,8 @@
 ---
-title: JS中的文档注释
+    title: JS中的文档注释
+    updated: 2024-12-23
+    author: xie392
+    url: https://v.douyin.com/ie9n8uDC/
 ---
 
 ## 安装

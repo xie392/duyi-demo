@@ -14,5 +14,6 @@
         "@typescript-eslint/no-require-imports": "off"
       }
     }
-  ]
+  ],
+  "ignorePatterns": ["./examples/**/*"]
 }

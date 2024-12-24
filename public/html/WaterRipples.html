@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <style>
+            body {
+                width: 100vw;
+                height: 100vh;
+                background: #000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0;
+            }
+
+            .ripple {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                background: #fff;
+                position: relative;
+                overflow: hidden;
+            }
+
+            /* 水波纹 */
+            .ripple::before,
+            .ripple::after {
+                content: '';
+                position: absolute;
+                width: 150%;
+                height: 150%;
+                border-radius: 40%;
+                background: skyblue;
+                left: 50%;
+                transform: translateX(-50%);
+                top: var(--y);
+                animation: load 2s infinite linear;
+            }
+
+            @keyframes load {
+                0% {
+                    transform: translateX(-50%) rotate(0deg);
+                }
+
+                100% {
+                    transform: translateX(-50%) rotate(360deg);
+                }
+            }
+
+            .btn {
+                padding: 0.3rem 1rem;
+                box-sizing: border-box;
+                border-radius: 4px;
+                cursor: pointer;
+                border: none;
+                outline: none;
+                background: orange;
+                color: #fff;
+                margin: 30px 10px 0 0;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            <div class="ripple" style="--y: 50%"></div>
+            <button class="btn" data-status="down">下降</button>
+            <button class="btn" data-status="up">上升</button>
+        </div>
+
+        <script>
+            const btns = document.querySelectorAll('.btn')
+            const ripple = document.querySelector('.ripple')
+            let y = 50
+
+            btns.forEach((btn) => {
+                btn.addEventListener('click', (e) => {
+                    const value = e.target.dataset.status
+                    if (value === 'down') {
+                        y += 5
+                        y = y >= 100 ? 100 : y
+                        ripple.style.setProperty('--y', y + '%')
+                    } else {
+                        y -= 5
+                        y = y <= 0 ? 0 : y
+                        ripple.style.setProperty('--y', y + '%')
+                    }
+                })
+            })
+        </script>
+    </body>
+</html>

@@ -1,3 +1,9 @@
+---
+    title: vscode正则插件
+    updated: 2024-12-23
+    author: xie392
+    url: https://v.douyin.com/ie9CDNA5/
+---
 
 # any-rule —— 正则提示插件
 

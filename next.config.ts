@@ -5,7 +5,7 @@ const withMDX = createMDX()
 
 const nextConfig: NextConfig = {
     pageExtensions: ['js', 'jsx', 'mdx', 'md', 'ts', 'tsx'],
-    transpilePackages: ['next-mdx-remote']
+    transpilePackages: ['next-mdx-remote'],
 }
 
 export default withMDX(nextConfig)

@@ -5,7 +5,8 @@ import { Icon } from '@/components/ui/icon'
 
 export const Affix = () => {
     const handleClick = () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+        const mainEl = document.getElementById('main')
+        mainEl?.scrollTo({ top: 0, behavior: 'smooth' })
     }
 
     return (
