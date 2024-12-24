@@ -2,7 +2,7 @@
     title: Vue 案例
     updated: 2024-12-23
     author: xie392
-    url: https://github.com/xie392/duyi-demo/example/vue-example
+    url: https://github.com/xie392/duyi-demo/tree/main/example/vue-example
 ---
 
 
