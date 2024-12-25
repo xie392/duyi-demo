@@ -13,7 +13,7 @@ export function cn(...inputs: ClassValue[]) {
  * @param url
  */
 export function parsePath(url: string[]): string {
-    const path = `/${MDX_CONFIG.SLICE_NAME}/` + url.join('/')
+    const path = `/${MDX_CONFIG.SLICE_NAME}/` + url?.join('/')
     return decodeURIComponent(path)
 }
 
@@ -90,7 +90,7 @@ export function searchDocs(menu: MenuItem[], name: string) {
  */
 export function transformPath(path: string[]): string[] {
     const result: string[] = []
-    const decodePath = path.map(decodeURIComponent)
+    const decodePath = path?.map(decodeURIComponent) ?? []
     for (let i = 0; i < decodePath.length; i++) {
         let currentPath = '/' + MDX_CONFIG.SLICE_NAME
         for (let j = 0; j <= i; j++) {

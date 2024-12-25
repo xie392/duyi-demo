@@ -49,6 +49,8 @@ const CollapsibleMenuInset = ({ items }: Omit<CollapsibleMenuProps, 'defaultOpen
     const { handleToggle } = useCollapsibleMenu()
     const { path } = useParams() as { path: string[] }
 
+    if(!items.length) return null
+    
     return items.map((item) => {
         const isActive = isSamePath(parsePath(path), item.url)
         return (
