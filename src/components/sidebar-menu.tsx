@@ -1,21 +1,76 @@
 'use client'
-import { cn, decodePath, isSamePath, parsePath } from '@/lib/utils'
+import { cn, isSamePath, parsePath } from '@/lib/utils'
 import { MenuItem } from '@/types/mdx'
 import { FileType } from '@/utils/enum'
-import { useEffect, useMemo } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { Icon } from '@/components/ui/icon'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { useMenusStore } from '@/stores/menus'
+import { useParams } from 'next/navigation'
 
 const Ellipsis = dynamic(() => import('react-ellipsis-component'), { ssr: false })
 
-interface LinkButtonProps extends React.HTMLAttributes<HTMLAnchorElement | HTMLDivElement> {
+interface CollapsibleMenuProps {
+    items: MenuItem[]
+    defaultOpenKeys?: string[]
+}
+
+type CollapsibleMenuContext = {
+    openKeys: string[]
+    handleToggle: (key: string) => void
+}
+
+const CollapsibleMenuContext = createContext<CollapsibleMenuContext | null>(null)
+
+function useCollapsibleMenu() {
+    const context = useContext(CollapsibleMenuContext)
+    if (!context) {
+        throw new Error('useCollapsibleMenu must be used within a CollapsibleMenuProvider')
+    }
+    return context
+}
+
+const CollapsibleMenu = ({ items = [], defaultOpenKeys = [] }: CollapsibleMenuProps) => {
+    const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys)
+
+    const handleToggle = (key: string) => {
+        const newOpendKeys = openKeys.includes(key) ? openKeys.filter((k) => k !== key) : [...openKeys, key]
+        setOpenKeys(newOpendKeys)
+    }
+
+    return (
+        <CollapsibleMenuContext.Provider value={{ openKeys, handleToggle }}>
+            <CollapsibleMenuInset items={items} />
+        </CollapsibleMenuContext.Provider>
+    )
+}
+
+const CollapsibleMenuInset = ({ items }: Omit<CollapsibleMenuProps, 'defaultOpenKeys'>) => {
+    const { handleToggle } = useCollapsibleMenu()
+    const { path } = useParams() as { path: string[] }
+
+    return items.map((item) => {
+        const isActive = isSamePath(parsePath(path), item.url)
+        return (
+            <div className="flex flex-col" key={item.key}>
+                <CollapsibleMenuTrigger
+                    item={item}
+                    onClick={() => handleToggle(item.key)}
+                    isActive={isActive}
+                    data-key={item.key}
+                />
+                <CollapsibleMenuContent item={item} />
+            </div>
+        )
+    })
+}
+
+interface CollapsibleMenuTriggerProps extends React.HTMLAttributes<HTMLAnchorElement | HTMLDivElement> {
     item: MenuItem
     isActive?: boolean
 }
 
-const LinkButton = ({ item, isActive = false, className, ...props }: LinkButtonProps) => {
+const CollapsibleMenuTrigger = ({ item, isActive = false, className, ...props }: CollapsibleMenuTriggerProps) => {
     const Component = item.type === FileType.File ? Link : 'div'
 
     return (
@@ -36,60 +91,30 @@ const LinkButton = ({ item, isActive = false, className, ...props }: LinkButtonP
     )
 }
 
-interface CollapsibleProps {
-    items: MenuItem[]
-    path?: string[]
+interface CollapsibleMenuContentProps {
+    item: MenuItem
 }
 
-export const CollapsibleMenu = ({ items, path = [] }: CollapsibleProps) => {
-    const openKeys = useMenusStore((state) => state.openKeys)
-    const updateOpenKeys = useMenusStore((state) => state.update)
+const CollapsibleMenuContent = ({ item }: CollapsibleMenuContentProps) => {
+    const { openKeys } = useCollapsibleMenu()
+    const isOpen = openKeys.includes(item.key)
 
-    const handleToggle = (key: string) => {
-        const newOpendKeys = openKeys.includes(key) ? openKeys.filter((k) => k !== key) : [...openKeys, key]
-        updateOpenKeys({ openKeys: newOpendKeys })
+    if (item.type === FileType.Dir && item?.items && item?.items?.length > 0) {
+        return (
+            <div
+                className={cn(
+                    'flex flex-col pl-3 items-center justify-between h-0 transition-all duration-300 ease-in-out overflow-hidden',
+                    isOpen && 'h-auto'
+                )}
+            >
+                <div className="px-0 w-full mx-0 border-transparent">
+                    <CollapsibleMenuInset items={item.items} />
+                </div>
+            </div>
+        )
     }
 
-    useEffect(() => {
-        if (!path?.length) return
-        updateOpenKeys({ openKeys: decodePath(path) })
-    }, [path])
-
-    const renderedItems = useMemo(
-        () =>
-            items.map((menu) => {
-                const isActive = isSamePath(parsePath(path), menu.url)
-                const isOpen = openKeys.includes(menu.title)
-
-                return (
-                    <div className="flex flex-col" key={menu.url}>
-                        <LinkButton
-                            item={menu}
-                            onClick={() => handleToggle(menu.title)}
-                            isActive={isActive}
-                            data-key={menu.title}
-                        />
-                        {menu.type === FileType.Dir && (
-                            <div
-                                className={cn(
-                                    'flex flex-col pl-3 items-center justify-between h-0 transition-all duration-300 ease-in-out overflow-hidden',
-                                    isOpen && 'h-auto'
-                                )}
-                            >
-                                {menu.items?.length ? (
-                                    <div className="px-0 w-full mx-0 border-transparent">
-                                        <CollapsibleMenu items={menu.items} path={path} />
-                                    </div>
-                                ) : (
-                                    <p className="text-gray-500 text-xs my-1 w-full">这里什么都没有...</p>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                )
-            }),
-        [items, openKeys, path, handleToggle]
-    )
-
-    return renderedItems
+    return null
 }
+
+export { CollapsibleMenu }

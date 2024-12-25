@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import dynamic from 'next/dynamic'
 import { MDX_ID } from '@/utils/constants'
+import { useParams } from 'next/navigation'
 
 const Ellipsis = dynamic(() => import('react-ellipsis-component'), { ssr: false })
 
@@ -26,6 +27,8 @@ export const TocList = ({ id = MDX_ID }: TitleListProps) => {
 
     const scrollRef = useRef<HTMLDivElement>(null)
     const listRef = useRef<HTMLLIElement[]>([])
+
+    const { path } = useParams()
 
     useEffect(() => {
         const containerElement = document.getElementById(id)
@@ -69,7 +72,7 @@ export const TocList = ({ id = MDX_ID }: TitleListProps) => {
             titleElements.forEach((element) => observer.unobserve(element))
             observer.disconnect()
         }
-    }, [])
+    }, [path])
 
     useEffect(() => {
         if (!listRef.current.length || !scrollRef.current) return

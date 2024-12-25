@@ -9,15 +9,8 @@ import { searchDocs } from '@/lib/utils'
 import { MenuItem } from '@/types/mdx'
 import Link from 'next/link'
 
+// 保持组件的纯粹性，不使用任何状态，只使用props和context
 export const SearchForm = () => {
-    const { menus } = useContext(AppContext)
-    const [keyword, setKeyword] = useState<string>('')
-    const [searchResult, setSearchResult] = useState<MenuItem[]>([])
-
-    useEffect(() => {
-        setSearchResult(searchDocs(menus, keyword))
-    }, [keyword])
-
     return (
         <Dialog>
             <DialogTrigger asChild>
@@ -33,30 +26,44 @@ export const SearchForm = () => {
                 <DialogHeader>
                     <DialogTitle>搜索文档</DialogTitle>
                 </DialogHeader>
-
-                <Command>
-                    <CommandInput
-                        placeholder="请输入你要搜索的内容"
-                        value={keyword}
-                        onValueChange={(search) => setKeyword(search)}
-                    />
-                    <CommandList>
-                        <CommandEmpty>没有搜索结果</CommandEmpty>
-                        {searchResult.length > 0 && (
-                            <CommandGroup heading="搜索结果">
-                                {searchResult.map((item) => (
-                                    <CommandItem className="flex justify-between items-center" key={item.title} asChild>
-                                        <Link href={item.url}>
-                                            {item.title}
-                                            <Icon name="File" className="mr-1 text-gray-500" />
-                                        </Link>
-                                    </CommandItem>
-                                ))}
-                            </CommandGroup>
-                        )}
-                    </CommandList>
-                </Command>
+                <DialogCommand />
             </DialogContent>
         </Dialog>
+    )
+}
+
+// TODO：优化搜索结果展示，启用加载滚动或者分页或者虚拟列表
+const DialogCommand = () => {
+    const { menus } = useContext(AppContext)
+    const [keyword, setKeyword] = useState<string>('')
+    const [searchResult, setSearchResult] = useState<MenuItem[]>([])
+
+    useEffect(() => {
+        setSearchResult(searchDocs(menus, keyword))
+    }, [keyword])
+    return (
+        <Command>
+            <CommandInput
+                placeholder="请输入你要搜索的内容"
+                value={keyword}
+                onValueChange={(search) => setKeyword(search)}
+            />
+            <CommandList>
+                <CommandEmpty>没有搜索结果</CommandEmpty>
+                {searchResult.length > 0 && (
+                    <CommandGroup heading="搜索结果">
+                        {/* TODO: 优化搜索结果展示 */}
+                        {searchResult.map((item) => (
+                            <CommandItem className="flex justify-between items-center" key={item.title} asChild>
+                                <Link href={item.url}>
+                                    {item.title}
+                                    <Icon name="File" className="mr-1 text-gray-500" />
+                                </Link>
+                            </CommandItem>
+                        ))}
+                    </CommandGroup>
+                )}
+            </CommandList>
+        </Command>
     )
 }

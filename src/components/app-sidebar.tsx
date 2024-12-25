@@ -24,6 +24,7 @@ import { AppContext } from '@/context/app-context'
 import { CollapsibleMenu } from '@/components/sidebar-menu'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import Image from 'next/image'
+import { getKeysByPath } from '@/lib/utils'
 
 const GenerateMenu = ({ items, path }: { items: MenuItem[]; path: string[] }) => {
     const LinkButton = useCallback((item: MenuItem) => {
@@ -76,7 +77,7 @@ export const AppSidebar = () => {
                     href="/"
                     className="pl-2 mb-3 text-lg font-bold bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 bg-clip-text text-transparent"
                 >
-                    <Image src="/images/logo4.png" width={120} height={47}  alt="logo" />
+                    <Image src="/images/logo4.png" width={120} height={47} alt="logo" />
                 </Link>
                 <SearchForm />
             </SidebarHeader>
@@ -85,7 +86,10 @@ export const AppSidebar = () => {
                     <SidebarGroup>
                         <SidebarGroupLabel>案例</SidebarGroupLabel>
                         <SidebarMenu className="px-2">
-                            <CollapsibleMenu items={menus} path={path as string[]} />
+                            <CollapsibleMenu
+                                items={menus}
+                                defaultOpenKeys={getKeysByPath(path as string[], menus)}
+                            />
                         </SidebarMenu>
                     </SidebarGroup>
                 </ScrollArea>

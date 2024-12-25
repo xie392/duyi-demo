@@ -6,6 +6,7 @@ export interface MenuItem {
     url: string,
     type: FileType
     items?: MenuItem[]
+    key: string
 }
 
 export interface MDXPath {

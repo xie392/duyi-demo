@@ -27,7 +27,8 @@ export function generateMdxDirsToMenu(dir: string = ''): MenuItem[] {
                 title,
                 url: removeFileExtensionAndKeepPath(extractPath),
                 type: isDir ? FileType.Dir : FileType.File,
-                ext
+                ext,
+                key: Math.random().toString(36).substr(2, 9)
             }
 
             if (isDir) {
