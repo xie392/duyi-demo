@@ -117,7 +117,7 @@ export function extractMDXMenuPaths() {
  */
 export function getMDXContent(filePath: string[]): string {
     const basePath = path.join(process.cwd(), 'public', parsePath(filePath) + '.md')
-    console.log('basePath', basePath)
+    // console.log('basePath', basePath)
     // 读取文件
     const content = fs.readFileSync(basePath, 'utf-8')
     return content

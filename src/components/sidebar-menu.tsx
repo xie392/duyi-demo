@@ -2,11 +2,12 @@
 import { cn, isSamePath, parsePath } from '@/lib/utils'
 import { MenuItem } from '@/types/mdx'
 import { FileType } from '@/utils/enum'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect } from 'react'
 import { Icon } from '@/components/ui/icon'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { useParams } from 'next/navigation'
+import { useSidebarStore } from '@/stores/sidebar'
 
 const Ellipsis = dynamic(() => import('react-ellipsis-component'), { ssr: false })
 
@@ -31,11 +32,18 @@ function useCollapsibleMenu() {
 }
 
 const CollapsibleMenu = ({ items = [], defaultOpenKeys = [] }: CollapsibleMenuProps) => {
-    const [openKeys, setOpenKeys] = useState<string[]>(defaultOpenKeys)
+    const { openKeys, setOpenKeys, toggleKey } = useSidebarStore()
+
+    // 初始化时合并默认展开的keys和已保存的keys
+    useEffect(() => {
+        const mergedKeys = Array.from(new Set([...openKeys, ...defaultOpenKeys]))
+        if (mergedKeys.length !== openKeys.length || !defaultOpenKeys.every(key => openKeys.includes(key))) {
+            setOpenKeys(mergedKeys)
+        }
+    }, [defaultOpenKeys, openKeys, setOpenKeys])
 
     const handleToggle = (key: string) => {
-        const newOpendKeys = openKeys.includes(key) ? openKeys.filter((k) => k !== key) : [...openKeys, key]
-        setOpenKeys(newOpendKeys)
+        toggleKey(key)
     }
 
     return (
