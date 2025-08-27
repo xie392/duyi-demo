@@ -1,6 +1,6 @@
 'use client'
 
-import { SearchForm } from '@/components/search-form'
+// import { SearchForm } from '@/components/search-form'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import {
     Sidebar,
@@ -79,7 +79,7 @@ export const AppSidebar = () => {
                 >
                     <Image src="/images/logo4.png" width={120} height={47} alt="logo" />
                 </Link>
-                <SearchForm />
+                {/* <SearchForm /> */}
             </SidebarHeader>
             <SidebarContent className="gap-0">
                 <ScrollArea>

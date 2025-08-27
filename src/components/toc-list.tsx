@@ -43,15 +43,39 @@ export const TocList = ({ id = MDX_ID }: TitleListProps) => {
 
         const observer = new IntersectionObserver(
             (entries: IntersectionObserverEntry[]) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const index = list.findIndex((item) => item.id === entry.target.id)
-                        if (index === -1) return
+                // 找到所有正在相交的标题
+                const intersectingEntries = entries.filter(entry => entry.isIntersecting)
+                
+                if (intersectingEntries.length > 0) {
+                    // 如果有多个标题在视口中，选择最靠近顶部的那个
+                    const topMostEntry = intersectingEntries.reduce((prev, current) => {
+                        return prev.boundingClientRect.top < current.boundingClientRect.top ? prev : current
+                    })
+                    
+                    const index = list.findIndex((item) => item.id === topMostEntry.target.id)
+                    if (index !== -1) {
                         setActiveIndex(index)
                     }
-                })
+                } else {
+                    // 如果没有标题在视口中，找到最接近视口顶部的标题
+                    const allEntries = entries.map(entry => ({
+                        entry,
+                        index: list.findIndex(item => item.id === entry.target.id),
+                        distance: Math.abs(entry.boundingClientRect.top)
+                    })).filter(item => item.index !== -1)
+                    
+                    if (allEntries.length > 0) {
+                        const closestEntry = allEntries.reduce((prev, current) => 
+                            prev.distance < current.distance ? prev : current
+                        )
+                        setActiveIndex(closestEntry.index)
+                    }
+                }
             },
-            { rootMargin: '0px 0px -50% 0px', threshold: 1 }
+            { 
+                rootMargin: '-10% 0px -60% 0px', 
+                threshold: [0, 0.25, 0.5, 0.75, 1]
+            }
         )
 
         const list: Title[] = Array.from(titleElements).map((element) => {
@@ -76,13 +100,26 @@ export const TocList = ({ id = MDX_ID }: TitleListProps) => {
 
     useEffect(() => {
         if (!listRef.current.length || !scrollRef.current) return
-        if (listRef.current.length < 10) return
         const activeElement = listRef.current[activeIndex]
         if (!activeElement) return
-        scrollRef.current.scrollTo({
-            top: activeElement.offsetHeight * (activeIndex - 5),
-            behavior: 'auto'
-        })
+        
+        const container = scrollRef.current
+        const containerHeight = container.clientHeight
+        const elementTop = activeElement.offsetTop
+        const elementHeight = activeElement.offsetHeight
+        
+        // 计算元素是否在可视区域内
+        const isVisible = elementTop >= container.scrollTop && 
+                         elementTop + elementHeight <= container.scrollTop + containerHeight
+        
+        if (!isVisible) {
+            // 将活跃元素滚动到容器中央
+            const targetScrollTop = elementTop - containerHeight / 2 + elementHeight / 2
+            container.scrollTo({
+                top: Math.max(0, targetScrollTop),
+                behavior: 'smooth'
+            })
+        }
     }, [activeIndex])
 
     return (

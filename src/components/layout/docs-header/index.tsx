@@ -15,6 +15,7 @@ import { ThemeIcon } from './theme-icon'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { Github } from '@/components/ui/icon'
+import { SearchForm } from '@/components/search-form'
 
 export const DocsHeader = () => {
     const { path } = useParams()
@@ -43,6 +44,7 @@ export const DocsHeader = () => {
                 </BreadcrumbList>
             </Breadcrumb>
             <div className="flex-1 flex justify-end gap-x-0.5">
+                <SearchForm  />
                 <ThemeIcon />
                 <Button variant="ghost" size="icon">
                     <Link target="_blank" rel="noreferrer" href="https://github.com/xie392/duyi-demo">

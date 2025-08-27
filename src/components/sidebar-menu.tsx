@@ -34,13 +34,23 @@ function useCollapsibleMenu() {
 const CollapsibleMenu = ({ items = [], defaultOpenKeys = [] }: CollapsibleMenuProps) => {
     const { openKeys, setOpenKeys, toggleKey } = useSidebarStore()
 
-    // 初始化时合并默认展开的keys和已保存的keys
+    // 当路由变化时，确保必要的路径被展开，但保留用户的其他展开状态
     useEffect(() => {
-        const mergedKeys = Array.from(new Set([...openKeys, ...defaultOpenKeys]))
-        if (mergedKeys.length !== openKeys.length || !defaultOpenKeys.every(key => openKeys.includes(key))) {
-            setOpenKeys(mergedKeys)
+        const currentOpenKeys = new Set(openKeys)
+        let hasChanges = false
+        
+        // 添加当前路径必须展开的keys
+        defaultOpenKeys.forEach(key => {
+            if (!currentOpenKeys.has(key)) {
+                currentOpenKeys.add(key)
+                hasChanges = true
+            }
+        })
+        
+        if (hasChanges) {
+            setOpenKeys(Array.from(currentOpenKeys))
         }
-    }, [defaultOpenKeys, openKeys, setOpenKeys])
+    }, [defaultOpenKeys.join(',')]) // 只在路径变化时触发
 
     const handleToggle = (key: string) => {
         toggleKey(key)
